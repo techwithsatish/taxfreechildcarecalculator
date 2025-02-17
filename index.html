@@ -6,12 +6,162 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tax Free Childcare Calculator: UK 2025</title>
 
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/images/calculator.jpg" as="image" fetchpriority="high">
+    <link rel="preload" href="/images/grid.svg" as="image" fetchpriority="high">
+    
+    <!-- Critical CSS -->
+    <style>
+        /* Optimize critical CSS */
+        :root {
+            --blue-600: #2563eb;
+            --blue-700: #1d4ed8;
+        }
+        
+        /* Optimize layout CSS */
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        /* Optimize header styles */
+        .header {
+            background-color: var(--blue-600);
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        /* Optimize hero section */
+        .hero {
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-image: linear-gradient(rgba(59,130,246,0.8),rgba(29,78,216,0.9)), url('/images/calculator.jpg');
+            background-size: cover;
+            background-position: center;
+            content-visibility: auto;
+        }
+        
+        /* Optimize form inputs */
+        .form-input {
+            width: 100%;
+            padding: 0.5rem 2rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.375rem;
+            display: block;
+        }
+        
+        /* Optimize mobile styles */
+        @media (max-width: 768px) {
+            .mobile-hidden {
+                display: none;
+            }
+            .hero {
+                min-height: 400px;
+            }
+        }
+        
+        /* Performance optimizations */
+        img {
+            content-visibility: auto;
+            contain: paint;
+        }
+        
+        /* Reduce CLS */
+        .aspect-video {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .aspect-video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background-color: #000;
+            cursor: pointer;
+        }
+
+        .video-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s;
+        }
+
+        .video-play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 68px;
+            height: 48px;
+            background-color: rgba(33, 33, 33, 0.8);
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .video-play-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-style: solid;
+            border-width: 12px 0 12px 20px;
+            border-color: transparent transparent transparent white;
+        }
+
+        .video-container:hover .video-thumbnail {
+            opacity: 0.7;
+        }
+
+        .video-container:hover .video-play-button {
+            background-color: #ff0000;
+        }
+    </style>
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+    <link rel="preconnect" href="https://www.youtube.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+    
+    <!-- Resource Hints -->
+    <link rel="preload" href="/js/jquery-3.1.1.min.js" as="script">
+    <link rel="preload" href="/js/autoNumeric.min.js" as="script">
+    <link rel="preload" href="/js/site.js" as="script">
+
     <!-- Meta Tags -->
     <meta name="description" content="Use our Tax Free Childcare Calculator to determine how much you need to pay into your tax-free childcare account in the UK for 2025.">
     <meta name="keywords" content="tax free childcare calculator, tax-free childcare calculator, childcare calculator, child tax free calculator, childcare tax free calculator,tax free calculator,universal credit childcare calculator,child tax free calculator,childcare calculator uk,government childcare calculator">
     <meta name="robots" content="index, follow">
     <meta name="author" content="satish">
     <meta name="theme-color" content="#ffffff">
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/manifest.json">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
@@ -61,8 +211,20 @@
     <!-- Inline SVG favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%237d6ee7'></rect><text x='50%' y='50%' dominant-baseline='central' text-anchor='middle' font-size='90'>🚼</text></svg>">
 
-    <!-- Add Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.warn('ServiceWorker registration failed:', err);
+                    });
+            });
+        }
+    </script>
 
 </head>
 <body>
@@ -198,26 +360,26 @@
             <div class="w-full lg:w-1/4 px-4">
                 <h2 class="text-2xl font-bold text-center mb-6">Quick Links</h2>
                 <div class="space-y-4">
-                    <a href="#" id="shareBtn" class="block w-full text-center border-2 border-purple-500 hover:bg-purple-50 text-purple-500 font-bold py-3 px-4 rounded transition-colors duration-200 flex items-center justify-center gap-2" onclick="navigator.share({title: 'Tax Free Childcare Calculator', url: window.location.href}); return false;">
+                    <a href="#" id="shareBtn" class="block w-full text-center border-2 border-purple-500 hover:bg-purple-50 text-purple-500 font-bold py-3 px-4 rounded transition-colors duration-200 flex items-center justify-center gap-2" data-track="Share Calculator" onclick="navigator.share({title: 'Tax Free Childcare Calculator', url: window.location.href}); return false;">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align: middle;">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                         </svg>
                         Share Tax Free Childcare Calculator
                     </a>
                     
-                    <a href="https://www.gov.uk/sign-in-childcare-account" id="signInBtn" class="block w-full text-center border-2 border-orange-500 hover:bg-orange-50 text-orange-500 font-bold py-3 px-4 rounded" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.gov.uk/sign-in-childcare-account" id="signInBtn" class="block w-full text-center border-2 border-orange-500 hover:bg-orange-50 text-orange-500 font-bold py-3 px-4 rounded" target="_blank" rel="noopener noreferrer" data-track="Sign into your Account">
                         Sign into your Account
                     </a>
                     
-                    <a href="https://www.tax.service.gov.uk/childcare-calc" class="block w-full text-center border-2 border-blue-500 hover:bg-blue-50 text-blue-500 font-bold py-3 px-4 rounded checkEligibleBtn" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.tax.service.gov.uk/childcare-calc" class="block w-full text-center border-2 border-blue-500 hover:bg-blue-50 text-blue-500 font-bold py-3 px-4 rounded checkEligibleBtn" target="_blank" rel="noopener noreferrer" data-track="Check if you're Eligible">
                         Check if you're Eligible
                     </a>
                     
-                    <a href="https://www.gov.uk/tax-free-childcare" id="officialWebsiteBtn" class="block w-full text-center border-2 border-green-500 hover:bg-green-50 text-green-500 font-bold py-3 px-4 rounded" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.gov.uk/tax-free-childcare" id="officialWebsiteBtn" class="block w-full text-center border-2 border-green-500 hover:bg-green-50 text-green-500 font-bold py-3 px-4 rounded" target="_blank" rel="noopener noreferrer" data-track="Tax Free Childcare Website">
                         Tax Free Childcare Website
                     </a>
                     
-                    <a href="https://www.gov.uk/find-registered-childminder" id="searchProvidersBtn" class="block w-full text-center border-2 border-red-500 hover:bg-red-50 text-red-500 font-bold py-3 px-4 rounded" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.gov.uk/find-registered-childminder" id="searchProvidersBtn" class="block w-full text-center border-2 border-red-500 hover:bg-red-50 text-red-500 font-bold py-3 px-4 rounded" target="_blank" rel="noopener noreferrer" data-track="Register Childcare Providers">
                         Registered Childcare Providers
                     </a>
                 </div>
@@ -312,8 +474,9 @@
         </div><br>
 
         <div class="max-w-4xl mx-auto mb-12">
-            <div class="aspect-video">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/dWtBXwDjccw?si=SUysPxrFpCK2Pl1c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen aria-label="Watch video about Tax Free Childcare"></iframe>
+            <div class="video-container" data-video-id="dWtBXwDjccw">
+                <img class="video-thumbnail" src="https://i.ytimg.com/vi/dWtBXwDjccw/maxresdefault.jpg" alt="Tax Free Childcare video thumbnail" loading="lazy">
+                <div class="video-play-button"></div>
             </div>
         </div>
     </div>
@@ -344,8 +507,9 @@
         </div><br>
 
         <div class="max-w-4xl mx-auto mb-12">
-            <div class="aspect-video">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/O1Hjpfsjt0A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen aria-label="Watch video about Tax Free Childcare Calculator"></iframe>
+            <div class="video-container" data-video-id="O1Hjpfsjt0A">
+                <img class="video-thumbnail" src="https://i.ytimg.com/vi/O1Hjpfsjt0A/maxresdefault.jpg" alt="Tax Free Childcare Calculator video thumbnail" loading="lazy">
+                <div class="video-play-button"></div>
             </div>
         </div>
     </div>
@@ -374,8 +538,9 @@
                 </ul>
                 <p>It's important to know if you can get tax-free childcare in the UK. By meeting the income, age, and work criteria, you can get help with childcare costs.</p><br>
                 <div class="max-w-4xl mx-auto mb-12">
-                    <div class="aspect-video">
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/p2k99f3FG0E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen aria-label="Watch video about Tax Free Childcare Eligibility"></iframe>
+                    <div class="video-container" data-video-id="p2k99f3FG0E">
+                        <img class="video-thumbnail" src="https://i.ytimg.com/vi/p2k99f3FG0E/maxresdefault.jpg" alt="Tax Free Childcare Eligibility video thumbnail" loading="lazy">
+                        <div class="video-play-button"></div>
                     </div>
                 </div>
             </div>
@@ -399,8 +564,9 @@
                 <p>For many families in the UK, the tax-free childcare allowance is vital. 60% of parents struggle financially because of childcare costs. The UK government wants to help parents balance work and family life. Knowing about the maximum support can help families choose the best childcare options and use the help available.</p><br>
 
                 <div class="max-w-4xl mx-auto mb-12">
-                    <div class="aspect-video">
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/EmonaLUgjwg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen aria-label="Watch video about Tax Free Childcare Maximum Allowance"></iframe>
+                    <div class="video-container" data-video-id="EmonaLUgjwg">
+                        <img class="video-thumbnail" src="https://i.ytimg.com/vi/EmonaLUgjwg/maxresdefault.jpg" alt="Tax Free Childcare Maximum Allowance video thumbnail" loading="lazy">
+                        <div class="video-play-button"></div>
                     </div>
                 </div>
             </div>
@@ -439,8 +605,9 @@
         <div id="tax-credits-video" class="py-8">
             <div class="container mx-auto px-4">
                 <div class="max-w-4xl mx-auto mb-8">
-                    <div class="aspect-video">
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/I_sxGhi6KB8?si=UEmlv8lsiOoSxY2e" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen aria-label="Watch video about Tax Free Childcare"></iframe>
+                    <div class="video-container" data-video-id="I_sxGhi6KB8">
+                        <img class="video-thumbnail" src="https://i.ytimg.com/vi/I_sxGhi6KB8/maxresdefault.jpg" alt="Tax Free Childcare video thumbnail" loading="lazy">
+                        <div class="video-play-button"></div>
                     </div>
                 </div>
             </div>
@@ -500,7 +667,8 @@
                         title="Tax Free Childcare Information"
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
+                        allowfullscreen
+                        loading="lazy">
                     </iframe>
                 </div>
             </div>
@@ -580,7 +748,7 @@
             <div class="space-y-6 text-gray-700 text-lg">
                 <p>The Tax-Free Childcare scheme is a big help for working families in the UK. It can give up to £2,000 per child each year to help with childcare costs. This can really help parents save money.</p>
                 <p>It's not just about the money. The scheme also helps families with disabled children a lot more, giving up to £4,000 per child each year. This means all children can get the care they need, no matter their needs.</p>
-                <p>To get the most from Tax-Free Childcare, you need to know if you qualify. You can use the Tax-Free Childcare Calculator to figure out how much you might save. This helps you plan better.</p>
+                <p>To get the most from Tax-Free Childcare, you need to know if you qualify. You can use the Tax Free Childcare Calculator to figure out how much you might save. This helps you plan better.</p>
                 <p>Whether you use nurseries, childminders, or after-school clubs, Tax-Free Childcare can help a lot. By knowing about this help, you can give your children the best care while keeping your budget in check.</p>
             </div>
         </div>
@@ -776,10 +944,47 @@
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 </script>
 
-<!-- Move scripts to head with defer -->
-<script defer src="/js/jquery-3.1.1.min.js"></script>
-<script defer src="/js/autoNumeric.min.js"></script>
-<script defer src="/js/site.js"></script>
+<!-- JavaScript Dependencies -->
+<script src="/js/jquery-3.1.1.min.js" defer></script>
+<script src="/js/autoNumeric.min.js" defer></script>
+<script src="/js/site.js" defer></script>
+
+<!-- Optimize YouTube loading -->
+<script>
+    // Lazy load YouTube player API
+    let ytApiLoaded = false;
+    function loadYouTubeAPI() {
+        if (!ytApiLoaded) {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            ytApiLoaded = true;
+        }
+    }
+
+    // Initialize video containers with intersection observer
+    document.addEventListener('DOMContentLoaded', function() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const container = entry.target;
+                    if (!container.dataset.initialized) {
+                        container.dataset.initialized = true;
+                        loadYouTubeAPI();
+                    }
+                }
+            });
+        }, {
+            rootMargin: '50px 0px',
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.video-container').forEach(container => {
+            observer.observe(container);
+        });
+    });
+</script>
 
 </body>
 </html>

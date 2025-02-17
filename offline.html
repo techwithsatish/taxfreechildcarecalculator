@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - Tax Free Childcare Calculator</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+        }
+        
+        .container {
+            max-width: 600px;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: white;
+            color: #2563eb;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .button:hover {
+            background: #f8fafc;
+            transform: translateY(-2px);
+        }
+        
+        .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">📡</div>
+        <h1>You're Offline</h1>
+        <p>Sorry, it seems you've lost your internet connection. The Tax Free Childcare Calculator needs an internet connection to work properly.</p>
+        <p>Please check your connection and try again.</p>
+        <a href="/" class="button">Try Again</a>
+    </div>
+    
+    <script>
+        // Check for online status and redirect if online
+        window.addEventListener('online', () => {
+            window.location.href = '/';
+        });
+        
+        // Add retry functionality to button
+        document.querySelector('.button').addEventListener('click', (e) => {
+            if (!navigator.onLine) {
+                e.preventDefault();
+                alert('Still offline. Please check your internet connection.');
+            }
+        });
+    </script>
+</body>
+</html> 
