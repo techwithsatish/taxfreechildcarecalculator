@@ -1,39 +1,44 @@
-$(document).ready(function () {
-    // Initialize variables
+document.addEventListener('DOMContentLoaded', function() {
+    // Constants
     const MAX_CONTRIBUTION = 500;
-    
-    // Initialize input fields with autoNumeric
-    let iTotalAmount = $('#totalAmount').autoNumeric('init', {
-        aSep: '', 
-        vMin: '0', 
-        mDec: '2', 
-        wEmpty: 'zero', 
-        lZero: 'deny'
-    });
-    
-    let iAlreadyContributed = $('#alreadyContributed').autoNumeric('init', {
-        aSep: '', 
-        vMax: MAX_CONTRIBUTION.toString(), 
-        vMin: '0', 
-        mDec: '2', 
-        wEmpty: 'zero', 
-        lZero: 'deny'
-    });
-    
-    let iPayAmount = $('#payAmount').autoNumeric('init', {
-        aSep: '', 
-        vMin: '0', 
-        mDec: '2', 
-        wEmpty: 'zero', 
-        lZero: 'deny'
-    });
-    
-    let iContributionAmount = $('#contributionAmount');
+    const $totalAmount = $('#totalAmount');
+    const $alreadyContributed = $('#alreadyContributed');
+    const $payAmount = $('#payAmount');
+    const $contributionAmount = $('#contributionAmount');
+    const $mobileMenu = $('#mobile-menu');
+    const $mobileMenuButton = $('#mobile-menu-button');
 
-    // Event listeners
-    iTotalAmount.on('keyup', updatedTotalAmount);
-    iPayAmount.on('keyup', updatedPayAmount);
-    iAlreadyContributed.on('keyup', updatedTotalAmount);
+    // Debounce function for better performance
+    const debounce = (func, wait) => {
+        let timeout;
+        return (...args) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    };
+
+    // Initialize autoNumeric with a single options object
+    const autoNumericOptions = {
+        aSep: '',
+        vMin: '0',
+        mDec: '2',
+        wEmpty: 'zero',
+        lZero: 'deny'
+    };
+
+    // Initialize inputs
+    const iTotalAmount = $totalAmount.autoNumeric('init', autoNumericOptions);
+    const iAlreadyContributed = $alreadyContributed.autoNumeric('init', { ...autoNumericOptions, vMax: MAX_CONTRIBUTION.toString() });
+    const iPayAmount = $payAmount.autoNumeric('init', autoNumericOptions);
+
+    // Debounced event handlers
+    const debouncedTotalAmount = debounce(updatedTotalAmount, 150);
+    const debouncedPayAmount = debounce(updatedPayAmount, 150);
+
+    // Event listeners with debouncing
+    iTotalAmount.on('keyup', debouncedTotalAmount);
+    iPayAmount.on('keyup', debouncedPayAmount);
+    iAlreadyContributed.on('keyup', debouncedTotalAmount);
 
     // Track outbound link clicks
     $('#signInBtn').on('click', () => handleOutboundLinkClicks('Sign into your Account'));
@@ -43,102 +48,28 @@ $(document).ready(function () {
     $('#applyBtn').on('click', () => handleOutboundLinkClicks('Apply online for Tax-Free Childcare'));
 
     // Mobile menu toggle
-    $('#mobile-menu-button').on('click', function(e) {
-        e.stopPropagation(); // Prevent event from bubbling up
-        $('#mobile-menu').toggleClass('hidden');
+    $mobileMenuButton.on('click', function(e) {
+        e.stopPropagation();
+        $mobileMenu.toggleClass('hidden');
     });
 
-    // Close mobile menu when clicking outside
-    $(document).on('click', function(event) {
-        const $menu = $('#mobile-menu');
-        const $button = $('#mobile-menu-button');
-        
-        if (!$menu.is(event.target) && 
-            !$button.is(event.target) && 
-            $button.has(event.target).length === 0 && 
-            $menu.has(event.target).length === 0) {
-            $menu.addClass('hidden');
+    // Use passive event listener for better scroll performance
+    document.addEventListener('click', function(event) {
+        if (!$mobileMenu.is(event.target) && 
+            !$mobileMenuButton.is(event.target) && 
+            $mobileMenuButton.has(event.target).length === 0 && 
+            $mobileMenu.has(event.target).length === 0) {
+            $mobileMenu.addClass('hidden');
         }
+    }, { passive: true });
+
+    // Optimize mobile menu link clicks
+    $('#mobile-menu a').on('click', () => $mobileMenu.addClass('hidden'));
+
+    // Remove loading state efficiently
+    requestAnimationFrame(() => {
+        document.documentElement.classList.remove('js-loading');
     });
-
-    // Close mobile menu when clicking a link
-    $('#mobile-menu a').on('click', function() {
-        $('#mobile-menu').addClass('hidden');
-    });
-
-    function updatedTotalAmount() {
-        let amount = parseFloat(iTotalAmount.val());
-
-        // Add validation
-        if (isNaN(amount)) {
-            iPayAmount.val('0.00');
-            iContributionAmount.val('0.00');
-            return;
-        }
-
-        if (amount > 0) {
-            let payInAmount = ((amount / 10) * 8);
-            let contributionAmount = ((amount / 10) * 2);
-            calculateContribution('total', payInAmount, contributionAmount);
-        } else {
-            iPayAmount.val('0.00');
-            iContributionAmount.val('0.00');
-        }
-    }
-
-    function updatedPayAmount() {
-        let amount = parseFloat(iPayAmount.val());
-
-        // Add validation
-        if (isNaN(amount)) {
-            iTotalAmount.val('0.00');
-            iContributionAmount.val('0.00');
-            return;
-        }
-
-        if (amount > 0) {
-            let contributionAmount = ((amount / 8) * 2).toFixed(2);
-            calculateContribution('payIn', amount, contributionAmount);
-        } else {
-            iTotalAmount.val('0.00');
-            iContributionAmount.val('0.00');
-        }
-    }
-
-    function calculateContribution(updateType, payInAmount, contributionAmount) {
-        // Add validation for inputs
-        payInAmount = Math.max(0, parseFloat(payInAmount) || 0);
-        contributionAmount = Math.max(0, parseFloat(contributionAmount) || 0);
-        let alreadyContributed = Math.max(0, parseFloat(iAlreadyContributed.val()) || 0);
-        let maxContribution = Math.max(0, MAX_CONTRIBUTION - alreadyContributed);
-
-        if (contributionAmount > maxContribution) {
-            if (updateType === 'total') {
-                payInAmount += (contributionAmount - maxContribution);
-            }
-            contributionAmount = maxContribution;
-        }
-
-        if (updateType === 'total') {
-            iPayAmount.val(payInAmount.toFixed(2));
-        } else {
-            iTotalAmount.val((payInAmount + contributionAmount).toFixed(2));
-        }
-
-        iContributionAmount.val(contributionAmount.toFixed(2));
-    }
-
-    // Add error handling for analytics
-    function handleOutboundLinkClicks(description) {
-        try {
-            gtag('event', 'click', {
-                'event_category': 'Outbound Link',
-                'event_label': description
-            });
-        } catch (error) {
-            console.warn('Analytics tracking failed:', error);
-        }
-    }
 
     // FAQ Accordion
     $('.faq-button').on('click', function() {
@@ -157,5 +88,68 @@ $(document).ready(function () {
             answer.addClass('active').css('max-height', answer[0].scrollHeight + 'px');
             arrow.addClass('rotate-180');
         }
+    });
+
+    // Optimized calculation functions
+    function updatedTotalAmount() {
+        const amount = parseFloat(iTotalAmount.val()) || 0;
+        
+        if (amount > 0) {
+            const payInAmount = (amount * 0.8);  // Optimized multiplication
+            const contributionAmount = (amount * 0.2);  // Optimized multiplication
+            calculateContribution('total', payInAmount, contributionAmount);
+        } else {
+            iPayAmount.val('0.00');
+            $contributionAmount.val('0.00');
+        }
+    }
+
+    function updatedPayAmount() {
+        const amount = parseFloat(iPayAmount.val()) || 0;
+        
+        if (amount > 0) {
+            const contributionAmount = (amount * 0.25).toFixed(2);  // Optimized multiplication
+            calculateContribution('payIn', amount, contributionAmount);
+        } else {
+            iTotalAmount.val('0.00');
+            $contributionAmount.val('0.00');
+        }
+    }
+
+    function calculateContribution(updateType, payInAmount, contributionAmount) {
+        payInAmount = Math.max(0, parseFloat(payInAmount) || 0);
+        contributionAmount = Math.max(0, parseFloat(contributionAmount) || 0);
+        const alreadyContributed = Math.max(0, parseFloat(iAlreadyContributed.val()) || 0);
+        const maxContribution = Math.max(0, MAX_CONTRIBUTION - alreadyContributed);
+
+        if (contributionAmount > maxContribution) {
+            if (updateType === 'total') {
+                payInAmount += (contributionAmount - maxContribution);
+            }
+            contributionAmount = maxContribution;
+        }
+
+        if (updateType === 'total') {
+            iPayAmount.val(payInAmount.toFixed(2));
+        } else {
+            iTotalAmount.val((payInAmount + contributionAmount).toFixed(2));
+        }
+
+        $contributionAmount.val(contributionAmount.toFixed(2));
+    }
+
+    // Optimized event tracking
+    const handleOutboundLinkClicks = (description) => {
+        if (typeof gtag === 'function') {
+            gtag('event', 'click', {
+                'event_category': 'Outbound Link',
+                'event_label': description
+            });
+        }
+    };
+
+    // Event delegation for outbound links
+    $(document).on('click', '[data-track]', function() {
+        handleOutboundLinkClicks($(this).data('track'));
     });
 });
