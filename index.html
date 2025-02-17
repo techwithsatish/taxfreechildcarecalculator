@@ -6,16 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tax Free Childcare Calculator: UK 2025</title>
 
-    <!-- Preload critical resources -->
-    <link rel="preload" href="/images/calculator.jpg" as="image" type="image/jpeg" fetchpriority="high" crossorigin>
-    <link rel="preload" href="/images/grid.svg" as="image" type="image/svg+xml" fetchpriority="high" crossorigin>
-
-    <!-- Preconnect to critical origins -->
-    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
-
-    <!-- Critical CSS inline -->
+    <!-- Inline critical CSS first -->
     <style>
-        /* Critical rendering CSS */
+        /* Immediate render critical CSS */
         :root {
             --blue-600: #2563eb;
             --blue-700: #1d4ed8;
@@ -27,19 +20,8 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            background-image: linear-gradient(rgba(59,130,246,0.8),rgba(29,78,216,0.9)), url('/images/calculator.jpg');
-            background-size: cover;
-            background-position: center;
+            background-color: var(--blue-600);
             content-visibility: auto;
-            contain: paint;
-            will-change: transform;
-            transform: translateZ(0);
-        }
-        
-        @media (max-width: 768px) {
-            #header {
-                min-height: 400px;
-            }
         }
         
         .container {
@@ -50,18 +32,47 @@
             padding-left: 1rem;
             padding-right: 1rem;
         }
+
+        /* Prevent layout shift */
+        .hero-content {
+            opacity: 1;
+            min-height: 400px;
+        }
+
+        @media (max-width: 768px) {
+            #header {
+                min-height: 400px;
+            }
+        }
     </style>
 
-    <!-- Load Tailwind CSS with high priority -->
-    <script src="https://cdn.tailwindcss.com" fetchpriority="high"></script>
+    <!-- Preload hero image with highest priority -->
+    <link rel="preload" as="image" href="/images/calculator.jpg" fetchpriority="high">
+    
+    <!-- Add background image after page load -->
+    <script>
+        const heroImage = new Image();
+        heroImage.src = '/images/calculator.jpg';
+        heroImage.onload = function() {
+            document.getElementById('header').style.backgroundImage = 
+                'linear-gradient(rgba(59,130,246,0.8),rgba(29,78,216,0.9)), url("/images/calculator.jpg")';
+            document.getElementById('header').style.backgroundSize = 'cover';
+            document.getElementById('header').style.backgroundPosition = 'center';
+        };
+    </script>
 
-    <!-- Defer non-critical CSS -->
-    <link rel="stylesheet" href="/css/non-critical.css" media="print" onload="this.media='all'">
+    <!-- Preconnect to critical origins -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+    <link rel="preconnect" href="https://www.youtube.com" crossorigin>
+
+    <!-- Load Tailwind CSS asynchronously -->
+    <link rel="stylesheet" href="https://cdn.tailwindcss.com" media="print" onload="this.media='all'">
 
     <!-- Preload critical JavaScript -->
-    <link rel="preload" href="/js/jquery-3.1.1.min.js" as="script" fetchpriority="high">
-    <link rel="preload" href="/js/autoNumeric.min.js" as="script" fetchpriority="high">
-    <link rel="preload" href="/js/site.js" as="script" fetchpriority="high">
+    <link rel="preload" href="/js/jquery-3.1.1.min.js" as="script">
+    <link rel="preload" href="/js/autoNumeric.min.js" as="script">
+    <link rel="preload" href="/js/site.js" as="script">
 
     <!-- Add loading state -->
     <style>
@@ -96,12 +107,10 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Hide content while loading */
         html.js-loading .content-wrapper {
             opacity: 0;
         }
 
-        /* Show content when loaded */
         html:not(.js-loading) .content-wrapper {
             opacity: 1;
             transition: opacity 0.3s ease-in;
@@ -118,106 +127,15 @@
         });
     </script>
 
-    <!-- Optimize image loading -->
-    <script>
-        // Add support for native lazy loading
-        if ('loading' in HTMLImageElement.prototype) {
-            const images = document.querySelectorAll('img[loading="lazy"]');
-            images.forEach(img => {
-                img.src = img.dataset.src;
-            });
-        } else {
-            // Fallback for browsers that don't support lazy loading
-            const script = document.createElement('script');
-            script.src = '/js/lazysizes.min.js';
-            document.body.appendChild(script);
-        }
-    </script>
+    <!-- Load JavaScript with defer -->
+    <script src="/js/jquery-3.1.1.min.js" defer></script>
+    <script src="/js/autoNumeric.min.js" defer></script>
+    <script src="/js/site.js" defer></script>
 
-    <!-- Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js', { scope: '/' })
-                    .then(registration => {
-                        console.log('ServiceWorker registration successful');
-                    })
-                    .catch(err => {
-                        console.warn('ServiceWorker registration failed:', err);
-                    });
-            });
-        }
-    </script>
-
-    <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
-    <link rel="preconnect" href="https://www.youtube.com" crossorigin>
-    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-    <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
-    
-    <!-- Resource Hints -->
-    <link rel="preload" href="/js/jquery-3.1.1.min.js" as="script">
-    <link rel="preload" href="/js/autoNumeric.min.js" as="script">
-    <link rel="preload" href="/js/site.js" as="script">
-
-    <!-- Meta Tags -->
+    <!-- Meta tags and other non-critical elements -->
     <meta name="description" content="Use our Tax Free Childcare Calculator to determine how much you need to pay into your tax-free childcare account in the UK for 2025.">
-    <meta name="keywords" content="tax free childcare calculator, tax-free childcare calculator, childcare calculator, child tax free calculator, childcare tax free calculator,tax free calculator,universal credit childcare calculator,child tax free calculator,childcare calculator uk,government childcare calculator">
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="satish">
-    <meta name="theme-color" content="#ffffff">
-
-    <!-- Web App Manifest -->
-    <link rel="manifest" href="/manifest.json">
-
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Tax Free Childcare Calculator: UK 2025">
-    <meta property="og:description" content="Use our Tax Free Childcare Calculator to determine how much you need to pay into your tax-free childcare account in the UK for 2025.">
-    <meta property="og:image" content="/images/ogimage.jpeg">
-    <meta property="og:image:alt" content="Tax Free Childcare Calculator: UK 2025">
-    <meta property="og:url" content="https://childcaretaxfreecalculator.com">
-    <meta property="og:site_name" content="Childcare Tax Free Calculator">
-
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Tax Free Childcare Calculator: UK 2025">
-    <meta name="twitter:description" content="Use our Tax Free Childcare Calculator to determine how much you need to pay into your tax-free childcare account in the UK for 2025.">
-    <meta name="twitter:image" content="/images/ogimage.jpeg">
-    <meta name="twitter:image:alt" content="Tax Free Childcare Calculator: UK 2025">
-
-    <!-- Additional Improvements -->
     <link rel="canonical" href="https://childcaretaxfreecalculator.com">
-    
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "Tax Free Childcare Calculator UK 2025",
-        "description": "Use our Tax Free Childcare Calculator to determine how much you need to pay into your tax-free childcare account in the UK for 2025.",
-        "applicationCategory": "FinanceApplication",
-        "operatingSystem": "Any",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "GBP"
-        },
-        "url": "https://childcaretaxfreecalculator.com",
-        "publisher": {
-            "@type": "Organization",
-            "name": "Tax Free Childcare Calculator",
-            "logo": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%237d6ee7'></rect><text x='50%' y='50%' dominant-baseline='central' text-anchor='middle' font-size='90'>🚼</text></svg>"
-        }
-    }
-    </script>
-
-    
-
-    <!-- Favicons -->
-    <!-- Inline SVG favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%237d6ee7'></rect><text x='50%' y='50%' dominant-baseline='central' text-anchor='middle' font-size='90'>🚼</text></svg>">
-
 </head>
 <body>
     <!-- Add loading indicator -->
