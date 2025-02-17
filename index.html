@@ -6,12 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tax Free Childcare Calculator: UK 2025</title>
 
-    <!-- Preload critical resources -->
-    <link rel="preload" href="/images/calculator.jpg" as="image" type="image/jpeg" fetchpriority="high">
-    <link rel="preload" href="/images/grid.svg" as="image" type="image/svg+xml">
-
-    <!-- Load Tailwind CSS with high priority -->
-    <script src="https://cdn.tailwindcss.com" fetchpriority="high"></script>
+    <!-- Load Tailwind CSS directly -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Add loading state -->
     <style>
@@ -82,8 +78,8 @@
             z-index: 50;
         }
         
-        /* Optimize hero section for LCP */
-        #header {
+        /* Optimize hero section */
+        .hero {
             min-height: 600px;
             display: flex;
             align-items: center;
@@ -93,9 +89,6 @@
             background-size: cover;
             background-position: center;
             content-visibility: auto;
-            contain: paint;
-            will-change: transform;
-            transform: translateZ(0);
         }
         
         /* Optimize form inputs */
@@ -112,7 +105,7 @@
             .mobile-hidden {
                 display: none;
             }
-            #header {
+            .hero {
                 min-height: 400px;
             }
         }
@@ -188,6 +181,7 @@
         .video-container:hover .video-play-button {
             background-color: #ff0000;
         }
+<<<<<<< HEAD
 
         .hero-content {
             opacity: 0;
@@ -257,6 +251,8 @@
             aspect-ratio: 16/9;
             height: auto !important;
         }
+=======
+>>>>>>> parent of e7c3254 (optimized)
     </style>
 
     <!-- Preconnect to external domains -->
@@ -410,9 +406,9 @@
             <div class="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30 mix-blend-multiply"></div>
             <div class="absolute inset-0 bg-[url('/images/grid.svg')] opacity-20"></div>
             <div class="container mx-auto px-4 relative z-10">
-                <div class="text-center text-white hero-content">
+                <div class="text-center text-white">
                     <div class="mb-12">
-                        <h1 class="text-6xl font-bold mb-8">Tax Free Childcare Calculator</h1>
+                        <h1 class="text-6xl font-bold mb-8 animate-fade-in-down">Tax Free Childcare Calculator</h1>
                         <div class="space-y-6 backdrop-blur-sm bg-white/10 p-8 rounded-xl shadow-2xl">
                             <p class="text-xl leading-relaxed">Our Tax Free Childcare Calculator shows how much you can get back, easing the financial stress of childcare.</p>
                             <p class="text-xl leading-relaxed">The tax-free childcare scheme helps working parents with childcare costs. The government can give up to £2,000 per child per year.</p>
