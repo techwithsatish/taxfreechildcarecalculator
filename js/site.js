@@ -1,3 +1,91 @@
+// Use passive event listeners for better scroll performance
+document.addEventListener('DOMContentLoaded', function() {
+    // Defer all non-critical initialization
+    requestIdleCallback(() => {
+        initializeApp();
+    });
+}, { passive: true });
+
+// Separate initialization into smaller chunks
+function initializeApp() {
+    // Initialize core functionality first
+    initializeInputs();
+    initializeEventListeners();
+    
+    // Defer non-critical features
+    requestIdleCallback(() => {
+        initializeVideoContainers();
+        initializeMobileMenu();
+    });
+}
+
+// Optimize input initialization
+function initializeInputs() {
+    const inputs = {
+        totalAmount: $('#totalAmount'),
+        alreadyContributed: $('#alreadyContributed'),
+        payAmount: $('#payAmount'),
+        contributionAmount: $('#contributionAmount')
+    };
+    
+    // Initialize autoNumeric with optimized settings
+    Object.entries(inputs).forEach(([key, input]) => {
+        input.autoNumeric('init', {
+            aSep: '',
+            vMin: '0',
+            mDec: '2',
+            wEmpty: 'zero',
+            lZero: 'deny'
+        });
+    });
+    
+    // Add debounced event listeners
+    inputs.totalAmount.on('keyup', debounce(updatedTotalAmount, 250));
+    inputs.payAmount.on('keyup', debounce(updatedPayAmount, 250));
+    inputs.alreadyContributed.on('keyup', debounce(updatedTotalAmount, 250));
+}
+
+// Optimize mobile menu
+function initializeMobileMenu() {
+    const $mobileMenu = $('#mobile-menu');
+    const $mobileMenuButton = $('#mobile-menu-button');
+    
+    $mobileMenuButton.on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $mobileMenu.toggleClass('hidden');
+    }, { passive: true });
+    
+    // Use passive event listeners for touch events
+    $(document).on('touchstart', closeMenu, { passive: true });
+    
+    $mobileMenu.on('click', 'a', function() {
+        $mobileMenu.addClass('hidden');
+    }, { passive: true });
+}
+
+// Optimize video container initialization
+function initializeVideoContainers() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const container = entry.target;
+                if (!container.dataset.initialized) {
+                    container.dataset.initialized = true;
+                    loadYouTubeAPI();
+                }
+            }
+        });
+    }, {
+        rootMargin: '50px 0px',
+        threshold: 0.1
+    });
+
+    document.querySelectorAll('.video-container').forEach(container => {
+        observer.observe(container);
+    });
+}
+
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', function() {
     // Defer non-critical initialization
