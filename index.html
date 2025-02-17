@@ -7,11 +7,61 @@
     <title>Tax Free Childcare Calculator: UK 2025</title>
 
     <!-- Preload critical resources -->
-    <link rel="preload" href="/images/calculator.jpg" as="image" type="image/jpeg" fetchpriority="high">
-    <link rel="preload" href="/images/grid.svg" as="image" type="image/svg+xml">
+    <link rel="preload" href="/images/calculator.jpg" as="image" type="image/jpeg" fetchpriority="high" crossorigin>
+    <link rel="preload" href="/images/grid.svg" as="image" type="image/svg+xml" fetchpriority="high" crossorigin>
+
+    <!-- Preconnect to critical origins -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+
+    <!-- Critical CSS inline -->
+    <style>
+        /* Critical rendering CSS */
+        :root {
+            --blue-600: #2563eb;
+            --blue-700: #1d4ed8;
+        }
+        
+        #header {
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-image: linear-gradient(rgba(59,130,246,0.8),rgba(29,78,216,0.9)), url('/images/calculator.jpg');
+            background-size: cover;
+            background-position: center;
+            content-visibility: auto;
+            contain: paint;
+            will-change: transform;
+            transform: translateZ(0);
+        }
+        
+        @media (max-width: 768px) {
+            #header {
+                min-height: 400px;
+            }
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    </style>
 
     <!-- Load Tailwind CSS with high priority -->
     <script src="https://cdn.tailwindcss.com" fetchpriority="high"></script>
+
+    <!-- Defer non-critical CSS -->
+    <link rel="stylesheet" href="/css/non-critical.css" media="print" onload="this.media='all'">
+
+    <!-- Preload critical JavaScript -->
+    <link rel="preload" href="/js/jquery-3.1.1.min.js" as="script" fetchpriority="high">
+    <link rel="preload" href="/js/autoNumeric.min.js" as="script" fetchpriority="high">
+    <link rel="preload" href="/js/site.js" as="script" fetchpriority="high">
 
     <!-- Add loading state -->
     <style>
@@ -56,150 +106,48 @@
             opacity: 1;
             transition: opacity 0.3s ease-in;
         }
-
-        /* Critical CSS */
-        :root {
-            --blue-600: #2563eb;
-            --blue-700: #1d4ed8;
-        }
-        
-        /* Optimize layout CSS */
-        .container {
-            width: 100%;
-            max-width: 1280px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-        
-        /* Optimize header styles */
-        .header {
-            background-color: var(--blue-600);
-            box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
-        
-        /* Optimize hero section for LCP */
-        #header {
-            min-height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background-image: linear-gradient(rgba(59,130,246,0.8),rgba(29,78,216,0.9)), url('/images/calculator.jpg');
-            background-size: cover;
-            background-position: center;
-            content-visibility: auto;
-            contain: paint;
-            will-change: transform;
-            transform: translateZ(0);
-        }
-        
-        /* Optimize form inputs */
-        .form-input {
-            width: 100%;
-            padding: 0.5rem 2rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.375rem;
-            display: block;
-        }
-        
-        /* Optimize mobile styles */
-        @media (max-width: 768px) {
-            .mobile-hidden {
-                display: none;
-            }
-            #header {
-                min-height: 400px;
-            }
-        }
-        
-        /* Performance optimizations */
-        img {
-            content-visibility: auto;
-            contain: paint;
-        }
-        
-        /* Reduce CLS */
-        .aspect-video {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-        }
-        
-        .aspect-video iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            background-color: #000;
-            cursor: pointer;
-        }
-
-        .video-thumbnail {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: opacity 0.3s;
-        }
-
-        .video-play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 68px;
-            height: 48px;
-            background-color: rgba(33, 33, 33, 0.8);
-            border-radius: 8px;
-            cursor: pointer;
-            z-index: 1;
-        }
-
-        .video-play-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-style: solid;
-            border-width: 12px 0 12px 20px;
-            border-color: transparent transparent transparent white;
-        }
-
-        .video-container:hover .video-thumbnail {
-            opacity: 0.7;
-        }
-
-        .video-container:hover .video-play-button {
-            background-color: #ff0000;
-        }
-
-        .hero-content {
-            opacity: 0;
-            animation: fadeIn 0.5s ease-out forwards;
-            animation-delay: 0.1s;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
     </style>
+
+    <!-- Initialize loading state -->
+    <script>
+        document.documentElement.classList.add('js-loading');
+        window.addEventListener('load', () => {
+            requestAnimationFrame(() => {
+                document.documentElement.classList.remove('js-loading');
+            });
+        });
+    </script>
+
+    <!-- Optimize image loading -->
+    <script>
+        // Add support for native lazy loading
+        if ('loading' in HTMLImageElement.prototype) {
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            images.forEach(img => {
+                img.src = img.dataset.src;
+            });
+        } else {
+            // Fallback for browsers that don't support lazy loading
+            const script = document.createElement('script');
+            script.src = '/js/lazysizes.min.js';
+            document.body.appendChild(script);
+        }
+    </script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js', { scope: '/' })
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.warn('ServiceWorker registration failed:', err);
+                    });
+            });
+        }
+    </script>
 
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
@@ -269,21 +217,6 @@
     <!-- Favicons -->
     <!-- Inline SVG favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%237d6ee7'></rect><text x='50%' y='50%' dominant-baseline='central' text-anchor='middle' font-size='90'>🚼</text></svg>">
-
-    <!-- Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => {
-                        console.log('ServiceWorker registration successful');
-                    })
-                    .catch(err => {
-                        console.warn('ServiceWorker registration failed:', err);
-                    });
-            });
-        }
-    </script>
 
 </head>
 <body>
@@ -1047,14 +980,6 @@
             document.querySelectorAll('.video-container').forEach(container => {
                 observer.observe(container);
             });
-        });
-    </script>
-
-    <!-- Initialize loading state -->
-    <script>
-        document.documentElement.classList.add('js-loading');
-        window.addEventListener('load', () => {
-            document.documentElement.classList.remove('js-loading');
         });
     </script>
 </body>
