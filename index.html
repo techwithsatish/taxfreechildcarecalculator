@@ -7,54 +7,20 @@
     <title>Tax Free Childcare Calculator: UK 2025</title>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     <!-- Load Tailwind CSS directly -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Add loading state -->
+=======
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/images/calculator.jpg" as="image" fetchpriority="high">
+    <link rel="preload" href="/images/grid.svg" as="image" fetchpriority="high">
+    
+    <!-- Critical CSS -->
+>>>>>>> parent of c5f579e (optimzeds-it)
     <style>
-        .loading {
-            display: none;
-        }
-        
-        html.js-loading .loading {
-            display: flex;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: white;
-            z-index: 9999;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #2563eb;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Hide content while loading */
-        html.js-loading .content-wrapper {
-            opacity: 0;
-        }
-
-        /* Show content when loaded */
-        html:not(.js-loading) .content-wrapper {
-            opacity: 1;
-            transition: opacity 0.3s ease-in;
-        }
-
-        /* Critical CSS */
+        /* Optimize critical CSS */
         :root {
             --blue-600: #2563eb;
             --blue-700: #1d4ed8;
@@ -329,11 +295,8 @@
 
 </head>
 <body>
-    <!-- Add loading indicator -->
-    <div class="loading">
-        <div class="loading-spinner"></div>
-    </div>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     <!-- Wrap content -->
     <div class="content-wrapper">
@@ -1506,24 +1469,105 @@
                         For official information, always refer to the <a href="https://www.gov.uk/tax-free-childcare" class="text-blue-400 hover:text-blue-300 transition-colors" target="_blank" rel="noopener noreferrer">GOV.UK website</a>.
                     </p>
                 </div>
+=======
+<header class="bg-blue-600 shadow-md">
+    <nav class="container mx-auto px-4 relative">
+        <div class="flex justify-between items-center h-16">
+            <!-- Logo/Home -->
+            <a href="/" class="flex items-center text-white font-bold text-xl">
+                Childcare Tax Free Calculator
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center space-x-8">
+                <!-- <a href="/blog" class="text-white hover:text-blue-200 transition-colors">Blog</a> -->
+                <a href="/pages/about.html" class="text-white hover:text-blue-200 transition-colors">About Us</a>
+                <a href="/pages/contact.html" class="text-white hover:text-blue-200 transition-colors">Contact</a>
+                <a href="https://github.com/techwithsatish/taxfreechildcarecalculator" 
+                   class="text-white hover:text-blue-200 transition-colors"
+                   target="_blank" 
+                   rel="noopener noreferrer">
+                    <span class="flex items-center">
+                        <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+                        </svg>
+                        GitHub
+                    </span>
+                </a>
+>>>>>>> parent of c5f579e (optimzeds-it)
             </div>
 
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>© <span id="currentYear"></span> Childcare Tax Free Calculator.</p>
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-button" class="md:hidden text-white hover:text-blue-200 focus:outline-none">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Update Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 bg-blue-700 shadow-lg border-t border-blue-500 z-50">
+            <div class="flex flex-col space-y-3 p-4">
+                <!-- <a href="/blog" class="text-white hover:text-blue-200 transition-colors py-2">Blog</a> -->
+                <a href="/pages/about.html" class="text-white hover:text-blue-200 transition-colors py-2">About Us</a>
+                <a href="/pages/contact.html" class="text-white hover:text-blue-200 transition-colors py-2">Contact</a>
+                <a href="https://github.com/techwithsatish/taxfreechildcarecalculator" 
+                   class="text-white hover:text-blue-200 transition-colors flex items-center py-2"
+                   target="_blank" 
+                   rel="noopener noreferrer">
+                    <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+                </div>
+    </nav>
+</header>
+
+<section id="header" class="min-h-[600px] flex items-center justify-center bg-cover bg-center bg-[linear-gradient(rgba(59,130,246,0.8),rgba(29,78,216,0.9)),url('/images/calculator.jpg')] pb-5 relative overflow-hidden" role="banner" aria-label="Tax Free Childcare Calculator - Help calculate your childcare costs and government contributions">
+    <div class="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30 mix-blend-multiply"></div>
+    <div class="absolute inset-0 bg-[url('/images/grid.svg')] opacity-20"></div>
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center text-white">
+            <div class="mb-12">
+                <h1 class="text-6xl font-bold mb-8 animate-fade-in-down">Tax Free Childcare Calculator</h1>
+                <div class="space-y-6 backdrop-blur-sm bg-white/10 p-8 rounded-xl shadow-2xl">
+                    <p class="text-xl leading-relaxed">Our Tax Free Childcare Calculator shows how much you can get back, easing the financial stress of childcare.</p>
+                    <p class="text-xl leading-relaxed">The tax-free childcare scheme helps working parents with childcare costs. The government can give up to £2,000 per child per year.</p>
+                    <p class="text-xl leading-relaxed">It's for kids under 12, or 17 if they have a disability. You need to earn at least £139 a week and not more than £100,000 a year.</p>
+                    <p class="text-xl leading-relaxed">Our Tax Free Childcare calculator shows how much UK childcare support you can get. The government puts in 25% of what you pay, up to certain limits. It takes about 20 minutes to apply online.</p>
+                    <p class="text-xl leading-relaxed">It can give up to £2,000 a year for each child towards childcare. About 1.3 million families can get help from this scheme. In this guide, we'll cover everything about the Tax-Free Childcare Calculator. You'll learn how to use it and how to get the most savings.</p>
+                </div>
             </div>
         </div>
-    </footer>
+    </div>
+</section>
 
-    <!-- Add script to update year -->
-    <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-    </script>
+<section id="calculator" class="bg-gray-100 py-12">
+    <div class="container mx-auto px-4">
+        <div class="mb-8">
+            <div class="text-center">
+                <div class="border-b-4 border-blue-600 w-24 mx-auto mb-4"></div>
+                <h2 class="text-4xl font-bold">Tax Free Childcare Calculator (UK-2025)
+                </h2>
+            </div>
+        </div>
 
-    <!-- JavaScript Dependencies -->
-    <script src="/js/jquery-3.1.1.min.js" defer></script>
-    <script src="/js/autoNumeric.min.js" defer></script>
-    <script src="/js/site.js" defer></script>
+        <div class="flex flex-wrap -mx-4">
+            <div class="w-full lg:w-3/4 px-4">
+                <form id="form" class="mt-8">
+                    <div class="mb-6">
+                        <label for="totalAmount" class="block font-bold mb-2">
+                            Total amount payable to Childcare Provider (Per Child)
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-0 top-0 h-full flex items-center pl-3 text-gray-600" aria-hidden="true">£</span>
+                            <input type="text" class="w-full pl-8 pr-3 py-2 border rounded-md" id="totalAmount" placeholder="0.00" aria-label="Total amount payable to Childcare Provider">
+                        </div>
+                    </div>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     <!-- Optimize YouTube loading -->
     <script>
@@ -1537,29 +1581,663 @@
                 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
                 ytApiLoaded = true;
             }
+=======
+                    <div class="mb-6">
+                        <label for="alreadyContributed" class="block font-bold mb-2">
+                            Amount already Contributed by Government (Current 3 month period)
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-0 top-0 h-full flex items-center pl-3 text-gray-600" aria-hidden="true">£</span>
+                            <input type="text" class="w-full pl-8 pr-3 py-2 border rounded-md" id="alreadyContributed" placeholder="0.00" aria-label="Amount already Contributed by Government">
+                        </div>
+                    </div>
+
+                    <div class="mb-6 mt-12">
+                        <label for="payAmount" class="block font-bold mb-2">
+                            Amount to pay into Government Childcare Account
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-0 top-0 h-full flex items-center pl-3 text-gray-600" aria-hidden="true">£</span>
+                            <input type="text" class="w-full pl-8 pr-3 py-2 border rounded-md" id="payAmount" placeholder="0.00" aria-label="Amount to pay into Government Childcare Account">
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="contributionAmount" class="block font-bold mb-2">
+                            Amount contributed by Government
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-0 top-0 h-full flex items-center pl-3 text-gray-600" aria-hidden="true">£</span>
+                            <input type="text" class="w-full pl-8 pr-3 py-2 border rounded-md bg-gray-50" id="contributionAmount" placeholder="0.00" readonly aria-label="Amount contributed by Government">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="w-full lg:w-1/4 px-4">
+                <h2 class="text-2xl font-bold text-center mb-6">Quick Links</h2>
+                <div class="space-y-4">
+                    <a href="#" id="shareBtn" class="block w-full text-center border-2 border-purple-500 hover:bg-purple-50 text-purple-500 font-bold py-3 px-4 rounded transition-colors duration-200 flex items-center justify-center gap-2" data-track="Share Calculator" onclick="navigator.share({title: 'Tax Free Childcare Calculator', url: window.location.href}); return false;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="vertical-align: middle;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                        </svg>
+                        Share Tax Free Childcare Calculator
+                    </a>
+                    
+                    <a href="https://www.gov.uk/sign-in-childcare-account" id="signInBtn" class="block w-full text-center border-2 border-orange-500 hover:bg-orange-50 text-orange-500 font-bold py-3 px-4 rounded" target="_blank" rel="noopener noreferrer" data-track="Sign into your Account">
+                        Sign into your Account
+                    </a>
+                    
+                    <a href="https://www.tax.service.gov.uk/childcare-calc" class="block w-full text-center border-2 border-blue-500 hover:bg-blue-50 text-blue-500 font-bold py-3 px-4 rounded checkEligibleBtn" target="_blank" rel="noopener noreferrer" data-track="Check if you're Eligible">
+                        Check if you're Eligible
+                    </a>
+                    
+                    <a href="https://www.gov.uk/tax-free-childcare" id="officialWebsiteBtn" class="block w-full text-center border-2 border-green-500 hover:bg-green-50 text-green-500 font-bold py-3 px-4 rounded" target="_blank" rel="noopener noreferrer" data-track="Tax Free Childcare Website">
+                        Tax Free Childcare Website
+                    </a>
+                    
+                    <a href="https://www.gov.uk/find-registered-childminder" id="searchProvidersBtn" class="block w-full text-center border-2 border-red-500 hover:bg-red-50 text-red-500 font-bold py-3 px-4 rounded" target="_blank" rel="noopener noreferrer" data-track="Register Childcare Providers">
+                        Registered Childcare Providers
+                    </a>
+                </div>
+                    </div>
+                </div>
+                    </div>
+</section>
+
+<!-- Move how-it-works section here -->
+<section id="how-it-works" class="min-h-[400px] flex items-center justify-center py-20 my-16 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500">
+    <div class="container mx-auto px-4">
+        <div class="text-center">
+            <div class="mb-12">
+                <h2 class="text-4xl font-bold mb-4 text-white">How Tax Free Childcare Calculator Works?</h2>
+                <div class="max-w-4xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-12">
+                        <div class="bg-white/20 backdrop-blur-sm p-8 rounded-lg shadow-lg">
+                            <h3 class="text-2xl font-semibold mb-3 text-white">You Pay</h3>
+                            <p class="text-3xl font-bold text-white">£8</p>
+                </div>
+                        <div class="bg-white/20 backdrop-blur-sm p-8 rounded-lg shadow-lg">
+                            <h3 class="text-2xl font-semibold mb-3 text-white">Government Adds</h3>
+                            <p class="text-3xl font-bold text-white">£2</p>
+                    </div>
+                        <div class="bg-white/20 backdrop-blur-sm p-8 rounded-lg shadow-lg">
+                            <h3 class="text-2xl font-semibold mb-3 text-white">Total</h3>
+                            <p class="text-3xl font-bold text-white">£10</p>
+                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Move benefits section here -->
+<section id="benefits" class="min-h-[400px] flex items-center justify-center py-20 my-16 bg-gradient-to-br from-green-400 via-cyan-500 to-blue-500">
+    <div class="container mx-auto px-4">
+        <div class="text-center">
+            <div class="mb-12">
+                <h2 class="text-4xl font-bold mb-4 text-white">Benefits of Tax Free Childcare</h2>
+                <div class="max-w-4xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mt-12">
+                        <div class="bg-white/20 backdrop-blur-sm p-8 rounded-lg shadow-lg">
+                            <h3 class="text-2xl font-semibold mb-3 text-white">Save Money</h3>
+                            <p class="text-lg text-white">Up to £2,000 per child per year in government contributions</p>
+                        </div>
+                        <div class="bg-white/20 backdrop-blur-sm p-8 rounded-lg shadow-lg">
+                            <h3 class="text-2xl font-semibold mb-3 text-white">Easy to Use</h3>
+                            <p class="text-lg text-white">Simple online account to manage your childcare payments</p>
+                        </div>
+                        <div class="bg-white/20 backdrop-blur-sm p-8 rounded-lg shadow-lg">
+                            <h3 class="text-2xl font-semibold mb-3 text-white">Flexible</h3>
+                            <p class="text-lg text-white">Use with registered childminders, nurseries, and after school clubs</p>
+                        </div>
+                        <div class="bg-white/20 backdrop-blur-sm p-8 rounded-lg shadow-lg">
+                            <h3 class="text-2xl font-semibold mb-3 text-white">Multiple Children</h3>
+                            <p class="text-lg text-white">Get support for each child under 11 years old</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="tax-free-childcare" class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="mb-12">
+            <div class="text-center">
+                <div class="border-b-4 border-blue-600 w-24 mx-auto mb-4"></div>
+                <h2 class="text-4xl font-bold">Understanding Tax-Free Childcare in UK 2025?</h2>
+            </div>
+        </div>
+        
+
+        <div class="max-w-4xl mx-auto">
+            <div class="space-y-6 text-gray-700 text-lg">
+                <p>The tax-free childcare scheme helps working parents with childcare costs. The government can give up to £2,000 per child each year. It's part of the UK's plan to support families with childcare, making it easier for parents to work and care for their kids.</p>
+                    
+                <p>Eligible families can get help, with the government adding 20p for every 80p they put in. This can go up to £500 every three months. You can use the Tax Free Childcare Calculator to see how much you can benefit from this scheme.</p>
+                    
+                <p>About 1.3 million families in the UK could use this scheme, but 800,000 are missing out. To qualify, parents must earn between the national minimum wage and £100,000 a year. Self-employed people who earn at least £152 a week on average can also apply.</p>
+            
+                <p>This scheme can be used with other childcare help, like free nursery hours. It gives families more choices for childcare.</p>
+
+                <p>The scheme has changed, with childcare vouchers no longer available for new applicants from October 2018. Now, the government helps with £2 for every £8 spent on childcare, up to £2,000 a year for each child. For disabled children, the support is £1,000 every three months, or £4,000 a year.</p>
+
+                <p>By understanding the tax-free childcare scheme, families can choose the best childcare options. They can also use the support available to them.</p>
+            </div>
+
+        </div><br>
+
+        <div class="max-w-4xl mx-auto mb-12">
+            <div class="video-container" data-video-id="dWtBXwDjccw">
+                <img class="video-thumbnail" src="https://i.ytimg.com/vi/dWtBXwDjccw/maxresdefault.jpg" alt="Tax Free Childcare video thumbnail" loading="lazy">
+                <div class="video-play-button"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="information" class="bg-gray-100 py-16">
+    <div class="container mx-auto px-4">
+        <div class="mb-12">
+            <div class="text-center">
+                <div class="border-b-4 border-blue-600 w-24 mx-auto mb-4"></div>
+                <h2 class="text-4xl font-bold">Our Tax Free Childcare Calculator</h2>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="space-y-6 text-gray-700 text-lg">
+                <p>Our tax free childcare calculator helps parents in the UK figure out if they can get tax-free childcare. It looks at income, how many children you have, and the childcare you use. For example, you can get up to £500 every 3 months (£2,000 a year) for each child. This goes up to £1,000 every 3 months (£4,000 a year) for children with disabilities.</p>
+                    
+                <p>The government puts in £2 for every £8 you pay to the childcare provider through an online account. To qualify, you need to earn a certain amount. This is £2,379 for those 21 or older, and £1,788 for those 18 to 20. Our childcare calculator helps you see if you're eligible and how much you could get.</p>
+                <p>Here are some important things to remember when using our tax free childcare calculator:</p>
+                <ul class="list-disc pl-8 space-y-2">
+                    <li>It checks if you earn enough and if your child is the right age</li>
+                    <li>Children must be 11 or under to qualify, stopping on 1 September after their 11th birthday</li>
+                    <li>If a child is disabled, they can get up to £4,000 a year until 1 September after their 16th birthday</li>
+                </ul>
+                <p>Our tax free childcare calculator is easy to use and gives you a clear idea of what you might get. Try it today and see how the tax-free childcare scheme in the UK can help you.</p>
+            </div>
+        </div><br>
+
+        <div class="max-w-4xl mx-auto mb-12">
+            <div class="video-container" data-video-id="O1Hjpfsjt0A">
+                <img class="video-thumbnail" src="https://i.ytimg.com/vi/O1Hjpfsjt0A/maxresdefault.jpg" alt="Tax Free Childcare Calculator video thumbnail" loading="lazy">
+                <div class="video-play-button"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="eligibility" class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="mb-12">
+            <div class="text-center">
+                <div class="border-b-4 border-blue-600 w-24 mx-auto mb-4"></div>
+                <h2 class="text-4xl font-bold">Who Is Eligible for Tax-Free Childcare?</h2>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="space-y-6 text-gray-700 text-lg">
+                <p>To see if you qualify for tax-free childcare in the UK, check the criteria. You need to have parents working in the UK, including those who are self-employed. Each parent must earn enough to meet the National Minimum Wage or Living Wage for 16 hours a week. Their earnings should not go over £100,000 a year.</p>
+                <p>The age of your child matters too. Children can get tax-free childcare if they are between 0 and 11 years old. If they have a disability, they can get it until they are 16. You can also get 30 hours of free childcare at the same time if you meet the criteria for both.</p>
+                <p>The government helps by adding £2 for every £8 you put into the childcare account. They can give up to £2,000 per child per year. For children with disabilities, they can give up to £4,000.</p>
+                <p>Here are the main things you need to know about tax-free childcare in the UK:</p>
+                <ul class="list-disc pl-8 space-y-2">
+                    <li>Parents must be working in the UK, including self-employed individuals</li>
+                    <li>Each parent must earn at least the National Minimum Wage or Living Wage for 16 hours a week</li>
+                    <li>Parents' earnings must not exceed £100,000 per year</li>
+                    <li>Children are eligible if they are aged 0 to 11, or 0 to 16 if they have a disability</li>
+                </ul>
+                <p>It's important to know if you can get tax-free childcare in the UK. By meeting the income, age, and work criteria, you can get help with childcare costs.</p><br>
+                <div class="max-w-4xl mx-auto mb-12">
+                    <div class="video-container" data-video-id="p2k99f3FG0E">
+                        <img class="video-thumbnail" src="https://i.ytimg.com/vi/p2k99f3FG0E/maxresdefault.jpg" alt="Tax Free Childcare Eligibility video thumbnail" loading="lazy">
+                        <div class="video-play-button"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="maximum-allowance" class="bg-gray-100 py-16">
+    <div class="container mx-auto px-4">
+        <div class="mb-12">
+            <div class="text-center">
+                <div class="border-b-4 border-blue-600 w-24 mx-auto mb-4"></div>
+                <h2 class="text-4xl font-bold">Maximum Allowance and Support Levels</h2>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="space-y-6 text-gray-700 text-lg">
+                <p>The tax-free childcare allowance in the UK is a big help for working parents. The government can give up to £2,000 per child each year. For disabled children, the help can go up to £4,000 per year. This is part of the UK government's effort to ease the cost of childcare for families.</p>
+                <p>The support is for families with children under 12. About 20% of these families will get help from the scheme. Families can save up to £500 per child each year with this scheme. The government plans to spend £1.5 billion on childcare support in 2025.</p>
+                <p>For many families in the UK, the tax-free childcare allowance is vital. 60% of parents struggle financially because of childcare costs. The UK government wants to help parents balance work and family life. Knowing about the maximum support can help families choose the best childcare options and use the help available.</p><br>
+
+                <div class="max-w-4xl mx-auto mb-12">
+                    <div class="video-container" data-video-id="EmonaLUgjwg">
+                        <img class="video-thumbnail" src="https://i.ytimg.com/vi/EmonaLUgjwg/maxresdefault.jpg" alt="Tax Free Childcare Maximum Allowance video thumbnail" loading="lazy">
+                        <div class="video-play-button"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="apply" class="py-8">   
+    <div class="container mx-auto px-4">
+        <div class="mb-8">
+            <div class="text-center">
+                <div class="border-b-4 border-blue-600 w-24 mx-auto mb-4"></div>
+                <h2 class="text-4xl font-bold">How to Apply for Tax Free Childcare in the UK?</h2>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="space-y-6 text-gray-700 text-lg">
+                
+
+            <p>Applying for tax-free childcare in the UK is easy. You can do it online or by phone, as the GOV.uk website explains. First, you need to gather some documents. These include proof of who you are, your nationality, and how much you earn. The whole process usually takes about 20 minutes.</p>
+            <p>To apply, you'll need to create an account. Then, you'll share personal and financial details. You'll also check if you're eligible. After you apply, it might take a week to find out if you qualify. If you do, you could get up to £2,000 per child each year. The most you can get is £10,000 a year.</p>
+            <p>Here's what you need to do to apply for tax-free childcare:</p>
+            <ul class="list-disc pl-8 space-y-2">
+                <li>Create an online account or apply by phone</li>
+                <li>Provide required documentation, including proof of identity and income</li>
+                <li>Verify eligibility and submit the application</li>
+                <li>Wait for the application to be processed, which can take up to a week</li>
+            </ul>
+            <p>Remember, tax-free childcare is for working parents or those who are self-employed. Your child must be under 12 years old (or 17 if they have a disability). For every £8 you put into the childcare account, the government adds £2. By following these steps and meeting the criteria, parents in the UK can get help with childcare costs.</p>
+
+        </div>
+        </div>
+
+        <div id="tax-credits-video" class="py-8">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto mb-8">
+                    <div class="video-container" data-video-id="I_sxGhi6KB8">
+                        <img class="video-thumbnail" src="https://i.ytimg.com/vi/I_sxGhi6KB8/maxresdefault.jpg" alt="Tax Free Childcare video thumbnail" loading="lazy">
+                        <div class="video-play-button"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-12">
+            <a href="https://www.gov.uk/apply-for-tax-free-childcare" id="applyBtn"
+               class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg border-2 border-red-600 hover:border-red-700"
+               target="_blank" rel="noopener noreferrer">Apply online for Tax Free Childcare</a>
+        </div>
+    </div>
+</section>
+
+<section id="qualifying-providers" class="bg-gray-50 py-16">
+    <div class="container mx-auto px-4">
+        <div class="mb-12">
+            <div class="text-center">
+                <div class="border-b-4 border-blue-600 w-24 mx-auto mb-4"></div>
+                <h2 class="text-4xl font-bold">Qualifying Childcare Providers</h2>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="space-y-6 text-gray-700 text-lg">
+                <p>In the UK, childcare providers must be registered and meet certain standards. This makes sure families can trust them and get quality care for their kids. The tax-free childcare scheme helps working families, giving up to £2,000 per child per year. For children with disabilities, it's up to £4,000.</p>
+                <p>Childcare providers in the UK include nurseries and childminders. To qualify, they must be registered and follow care and safety standards. Families can pick from many providers, including those for children with special needs.</p>
+                <p>The following table summarizes the key requirements for qualifying childcare providers in the UK:</p>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full table-auto border-collapse border border-gray-200">
+                        <thead>
+                            <tr class="bg-gray-100 border border-gray-200">
+                                <th class="px-6 py-3 text-left text-gray-700 font-semibold border border-gray-200">Requirement</th>
+                                <th class="px-6 py-3 text-left text-gray-700 font-semibold border border-gray-200">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border border-gray-200 hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-normal border border-gray-200">Registration</td>
+                                <td class="px-6 py-4 whitespace-normal border border-gray-200">Registered with relevant authorities, such as Onsted</td>
+                            </tr>
+                            <tr class="border border-gray-200 hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-normal border border-gray-200">Standards</td>
+                                <td class="px-6 py-4 whitespace-normal border border-gray-200">Meet certain standards of care and safety</td>
+                            </tr>
+                            <tr class="border border-gray-200 hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-normal border border-gray-200">Eligibility</td>
+                                <td class="px-6 py-4 whitespace-normal border border-gray-200">Eligible families can receive up to £2,000 per child per year, or £4,000 per year for children with a disability</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>Families in the UK can get tax-free childcare and other funding. This includes 15 hours of free childcare for 2- to 4-year-olds. The scheme aims to help working families by giving them more childcare options.</p><br>
+                <div class="aspect-w-16 aspect-h-9 mt-4" style="height: 450px;">
+                    <iframe 
+                        class="w-full h-full rounded-lg shadow-lg"
+                        src="https://www.youtube.com/embed/2q36APE809Y" 
+                        title="Tax Free Childcare Information"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="using-account" class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="mb-12">
+            <div class="text-center">
+                <div class="border-b-4 border-blue-600 w-24 mx-auto mb-4"></div>
+                <h2 class="text-4xl font-bold">Using Your Tax-Free Childcare Account</h2>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="space-y-6 text-gray-700 text-lg">
+                <p>After setting up your tax-free childcare account, you can start paying your childcare provider. The GOV.uk website says you can use it to pay for approved childcare. For every £8 you pay, the government adds £2, giving you a 25% return.</p>
+                <p>You can log in online to see how much money you have. You can also set up automatic payments to your childcare provider. This makes budgeting for childcare easier. Eligible families can get up to £2,000 free per child for childcare costs.</p>
+                <p>For disabled children, the help can go up to £4,000 a year until they're 17.</p>
+                <p>The scheme has rules, like income limits and needing to work at least £120 a week. Your income must be under £100,000 to get Tax-Free Childcare. Knowing these rules helps you use the scheme well and cut down on childcare costs in the UK.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="common-issues" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="mb-12">
+            <div class="text-center">
+                <div class="border-b-4 border-blue-600 w-24 mx-auto mb-4"></div>
+                <h2 class="text-4xl font-bold">Common Issues and Solutions</h2>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="space-y-6">
+                <!-- Issue Card -->
+                <div class="bg-gray-50 rounded-lg p-6 shadow-md">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Account Management Issues</h3>
+                    <p class="text-gray-700">Parents in the UK might face problems with the tax-free childcare scheme. This scheme helps working families with childcare costs, with a maximum government top-up of £2,000 per year per child. Issues like technical problems, payment issues, and managing the account can occur.</p>
+                </div>
+
+                <!-- Issue Card -->
+                <div class="bg-gray-50 rounded-lg p-6 shadow-md">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Online Account Issues.</h3>
+                    <p class="text-gray-700">Setting up or accessing the online account can be tough. Making payments or managing the account balance might also cause problems. The GOV.uk website says these issues can happen for reasons like wrong login details or not enough money. Parents can get help from customer support or find troubleshooting guides on the official website.</p>
+                </div>
+
+                <!-- Issue Card -->
+                <div class="bg-gray-50 rounded-lg p-6 shadow-md">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Eligibility Knowledge Essential.</h3>
+                    <p class="text-gray-700">Knowing the scheme's rules and eligibility is key. The scheme is for children under 12 (or 17 if disabled). There's an online calculator to compare different childcare options. Being informed can help avoid problems and make the most of the scheme.</p>
+                </div>
+
+                <!-- Issue Card -->
+                <div class="bg-gray-50 rounded-lg p-6 shadow-md">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Alternative Support Options.</h3>
+                    <p class="text-gray-700">Parents should also know about other support like Universal Credit. It can cover up to 85% of childcare costs for working parents. There's also free childcare for 3 to 4-year-olds. Understanding these options can help parents make better childcare choices and avoid issues with the tax-free childcare scheme.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="conclusion" class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="mb-12">
+            <div class="text-center">
+                <div class="border-b-4 border-blue-600 w-24 mx-auto mb-4"></div>
+                <h2 class="text-4xl font-bold">Conclusion</h2>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="space-y-6 text-gray-700 text-lg">
+                <p>The Tax-Free Childcare scheme is a big help for working families in the UK. It can give up to £2,000 per child each year to help with childcare costs. This can really help parents save money.</p>
+                <p>It's not just about the money. The scheme also helps families with disabled children a lot more, giving up to £4,000 per child each year. This means all children can get the care they need, no matter their needs.</p>
+                <p>To get the most from Tax-Free Childcare, you need to know if you qualify. You can use the Tax Free Childcare Calculator to figure out how much you might save. This helps you plan better.</p>
+                <p>Whether you use nurseries, childminders, or after-school clubs, Tax-Free Childcare can help a lot. By knowing about this help, you can give your children the best care while keeping your budget in check.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="faq" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="mb-12">
+            <div class="text-center">
+                <div class="border-b-4 border-blue-600 w-24 mx-auto mb-4"></div>
+                <h2 class="text-4xl font-bold">Tax Free Childcare Calculator FAQs</h2>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="space-y-6">
+                <div class="bg-gray-50 rounded-lg p-6 shadow-md">
+                    <button class="w-full flex justify-between items-center" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <h3 class="text-xl font-semibold text-gray-800">How to work out tax free childcare calculator?</h3>
+                        <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="text-gray-700 mt-4 hidden">
+                        <p class="mb-4">To work out your tax-free childcare using the calculator:</p>
+                        <ol class="list-decimal pl-6 space-y-2">
+                            <li>Enter your details.</li>
+                            <li>The childcare tax free calculator(TFC) will show how much government will contribute.</li>
+                        </ol>
+                        <p class="mt-4">Remember: If you pay £8 in, the government adds £2, up to £2,000 per child per year (or £4,000 for disabled children).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="sources" class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="mb-12">
+            <div class="text-center">
+                <div class="border-b-4 border-blue-600 w-24 mx-auto mb-4"></div>
+                <h2 class="text-4xl font-bold">Source Links</h2>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <a href="https://www.gov.uk/help-with-childcare-costs/childcare-vouchers" class="block p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow" target="_blank" rel="noopener noreferrer">
+                        <h3 class="font-semibold text-blue-600">Help paying for childcare</h3>
+                        <p class="text-gray-600 text-sm">Gov.uk - Official guidance on childcare costs</p>
+                    </a>
+
+                    <a href="https://www.moneysavingexpert.com/family/tax-free-childcare/" class="block p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow" target="_blank" rel="noopener noreferrer">
+                        <h3 class="font-semibold text-blue-600">Tax-Free Childcare</h3>
+                        <p class="text-gray-600 text-sm">Money Saving Expert - Comprehensive guide</p>
+                    </a>
+
+                    <a href="https://www.kidsplanetdaynurseries.co.uk/parents/tax-free-childcare/" class="block p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow" target="_blank" rel="noopener noreferrer">
+                        <h3 class="font-semibold text-blue-600">A Guide to Tax-Free Childcare in the UK</h3>
+                        <p class="text-gray-600 text-sm">Kids Planet Nurseries - Practical guide</p>
+                    </a>
+
+                    <a href="https://www.thetimes.com/money-mentor/income-budgeting/tax-free-childcare-uk" class="block p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow" target="_blank" rel="noopener noreferrer">
+                        <h3 class="font-semibold text-blue-600">Tax-free childcare UK: Are you eligible?</h3>
+                        <p class="text-gray-600 text-sm">Times Money Mentor - Eligibility guide</p>
+                    </a>
+
+                    <a href="https://www.gov.uk/tax-free-childcare" class="block p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow" target="_blank" rel="noopener noreferrer">
+                        <h3 class="font-semibold text-blue-600">Tax-Free Childcare</h3>
+                        <p class="text-gray-600 text-sm">Gov.uk - Official tax-free childcare information</p>
+                    </a>
+
+                    <a href="https://www.surreycc.gov.uk/children/support-and-advice/families/childcare/paying/tax-free" class="block p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow" target="_blank" rel="noopener noreferrer">
+                        <h3 class="font-semibold text-blue-600">Information on tax free childcare scheme</h3>
+                        <p class="text-gray-600 text-sm">Surrey County Council - Local guidance</p>
+                    </a>
+
+                    <a href="https://www.kent.gov.uk/education-and-children/childcare-and-pre-school/parents-guide-to-tax-free-childcare" class="block p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow" target="_blank" rel="noopener noreferrer">
+                        <h3 class="font-semibold text-blue-600">Tax-Free Childcare</h3>
+                        <p class="text-gray-600 text-sm">Kent County Council - Parent's guide</p>
+                    </a>
+                </div>
+
+                <div class="space-y-4">
+                    <a href="https://www.gov.uk/guidance/hmrc-tools-and-calculators" class="block p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow" target="_blank" rel="noopener noreferrer">
+                        <h3 class="font-semibold text-blue-600">HMRC tools and calculators</h3>
+                        <p class="text-gray-600 text-sm">Gov.uk - Official HMRC calculators</p>
+                    </a>
+
+                    <a href="https://www.brighthorizons.co.uk/childcare-funding-options/tax-free-childcare" class="block p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow" target="_blank" rel="noopener noreferrer">
+                        <h3 class="font-semibold text-blue-600">Tax-Free Childcare</h3>
+                        <p class="text-gray-600 text-sm">Bright Horizons - Funding options</p>
+                    </a>
+
+                    <a href="https://www.nidirect.gov.uk/articles/help-paying-approved-childcare" class="block p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow" target="_blank" rel="noopener noreferrer">
+                        <h3 class="font-semibold text-blue-600">Help paying for approved childcare</h3>
+                        <p class="text-gray-600 text-sm">NI Direct - Northern Ireland guidance</p>
+                    </a>
+
+                    <a href="https://www.dorsetcouncil.gov.uk/w/tax-free-childcare-information-for-parents" class="block p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow" target="_blank" rel="noopener noreferrer">
+                        <h3 class="font-semibold text-blue-600">Tax-Free Childcare</h3>
+                        <p class="text-gray-600 text-sm">Dorset Council - Parent information</p>
+                    </a>
+
+                    <a href="https://www.snapdragonsnursery.com/tax-free-childcare" class="block p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow" target="_blank" rel="noopener noreferrer">
+                        <h3 class="font-semibold text-blue-600">Tax Free Childcare</h3>
+                        <p class="text-gray-600 text-sm">Snapdragons Nursery - Provider guide</p>
+                    </a>
+
+                    <a href="https://workingfamilies.org.uk/articles/already-get-vouchers-should-i-switch-to-tax-free-childcare/" class="block p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow" target="_blank" rel="noopener noreferrer">
+                        <h3 class="font-semibold text-blue-600">Should I switch to Tax-Free Childcare?</h3>
+                        <p class="text-gray-600 text-sm">Working Families - Comparison guide</p>
+                    </a>
+
+                    <a href="https://www.moneysavingexpert.com/family/childcare-costs/" class="block p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow" target="_blank" rel="noopener noreferrer">
+                        <h3 class="font-semibold text-blue-600">Help with childcare costs</h3>
+                        <p class="text-gray-600 text-sm">Money Saving Expert - Cost guidance</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Add footer section -->
+<footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Quick Links -->
+            <div>
+                <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="https://www.gov.uk/tax-free-childcare" class="hover:text-blue-400 transition-colors" target="_blank" rel="noopener noreferrer">
+                            Official Website
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.gov.uk/sign-in-childcare-account" class="hover:text-blue-400 transition-colors" target="_blank" rel="noopener noreferrer">
+                            Sign In
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.tax.service.gov.uk/childcare-calc" class="hover:text-blue-400 transition-colors" target="_blank" rel="noopener noreferrer">
+                            Check Eligibility
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Important Information -->
+            <div>
+                <h3 class="text-xl font-semibold mb-4">Important Information</h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#eligibility" class="hover:text-blue-400 transition-colors">
+                            Eligibility Criteria
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#information" class="hover:text-blue-400 transition-colors">
+                            Tax Free Childcare Calculator
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- About -->
+            <div>
+                <h3 class="text-xl font-semibold mb-4">About Childcare Tax Free Calculator</h3>
+                <p class="text-gray-300 mb-4">
+                    This calculator helps you work out how much you need to pay into your Tax Free Childcare account in the UK and how much the government will contribute.
+                </p>
+                <p class="text-gray-300">
+                    For official information, always refer to the <a href="https://www.gov.uk/tax-free-childcare" class="text-blue-400 hover:text-blue-300 transition-colors" target="_blank" rel="noopener noreferrer">GOV.UK website</a>.
+                </p>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <p>© <span id="currentYear"></span> Childcare Tax Free Calculator.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Add script to update year -->
+<script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
+
+<!-- JavaScript Dependencies -->
+<script src="/js/jquery-3.1.1.min.js" defer></script>
+<script src="/js/autoNumeric.min.js" defer></script>
+<script src="/js/site.js" defer></script>
+
+<!-- Optimize YouTube loading -->
+<script>
+    // Lazy load YouTube player API
+    let ytApiLoaded = false;
+    function loadYouTubeAPI() {
+        if (!ytApiLoaded) {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            ytApiLoaded = true;
+>>>>>>> parent of c5f579e (optimzeds-it)
         }
+    }
 
-        // Initialize video containers with intersection observer
-        document.addEventListener('DOMContentLoaded', function() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const container = entry.target;
-                        if (!container.dataset.initialized) {
-                            container.dataset.initialized = true;
-                            loadYouTubeAPI();
-                        }
+    // Initialize video containers with intersection observer
+    document.addEventListener('DOMContentLoaded', function() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const container = entry.target;
+                    if (!container.dataset.initialized) {
+                        container.dataset.initialized = true;
+                        loadYouTubeAPI();
                     }
-                });
-            }, {
-                rootMargin: '50px 0px',
-                threshold: 0.1
+                }
             });
-
-            document.querySelectorAll('.video-container').forEach(container => {
-                observer.observe(container);
-            });
+        }, {
+            rootMargin: '50px 0px',
+            threshold: 0.1
         });
+<<<<<<< HEAD
     </script>
 =======
 <!-- Move scripts to head with defer -->
@@ -1567,13 +2245,14 @@
 <script defer src="/js/autoNumeric.min.js"></script>
 <script defer src="/js/site.js"></script>
 >>>>>>> parent of ed51814 (optimesed - fixed)
+=======
+>>>>>>> parent of c5f579e (optimzeds-it)
 
-    <!-- Initialize loading state -->
-    <script>
-        document.documentElement.classList.add('js-loading');
-        window.addEventListener('load', () => {
-            document.documentElement.classList.remove('js-loading');
+        document.querySelectorAll('.video-container').forEach(container => {
+            observer.observe(container);
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>
