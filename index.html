@@ -6,16 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tax Free Childcare Calculator: UK 2025</title>
 
-    <!-- High priority resources -->
-    <link rel="preload" as="image" href="/images/calculator.jpg" fetchpriority="high">
+    <!-- Highest priority resources -->
+    <link rel="preload" as="image" href="/images/calculator.jpg" fetchpriority="high" imagesrcset="/images/calculator.jpg">
     <link rel="preload" as="image" href="/images/grid.svg" fetchpriority="high">
-    <link rel="preload" as="script" href="/js/jquery-3.1.1.min.js">
-    <link rel="preload" as="script" href="/js/autoNumeric.min.js">
-    <link rel="preload" as="script" href="/js/site.js">
+    
+    <!-- Preconnect to critical domains -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+    <link rel="preconnect" href="https://www.youtube.com" crossorigin>
+    <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
 
     <!-- Critical CSS -->
     <style>
-        /* Existing styles remain unchanged */
+        /* Critical rendering paths */
+        :root {
+            --blue-600: #2563eb;
+            --blue-700: #1d4ed8;
+        }
+        
+        #header {
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-image: linear-gradient(rgba(59,130,246,0.8),rgba(29,78,216,0.9)), url('/images/calculator.jpg');
+            background-size: cover;
+            background-position: center;
+            content-visibility: auto;
+            contain: paint;
+            will-change: transform;
+            transform: translateZ(0);
+        }
+        
+        @media (max-width: 768px) {
+            #header {
+                min-height: 400px;
+            }
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        /* Loading state */
         .loading {
             display: none;
         }
@@ -55,63 +93,25 @@
             opacity: 1;
             transition: opacity 0.3s ease-in;
         }
-
-        /* Critical rendering paths */
-        :root {
-            --blue-600: #2563eb;
-            --blue-700: #1d4ed8;
-        }
-        
-        #header {
-            min-height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background-image: linear-gradient(rgba(59,130,246,0.8),rgba(29,78,216,0.9)), url('/images/calculator.jpg');
-            background-size: cover;
-            background-position: center;
-            content-visibility: auto;
-            contain: paint;
-            will-change: transform;
-            transform: translateZ(0);
-        }
-        
-        @media (max-width: 768px) {
-            #header {
-                min-height: 400px;
-            }
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1280px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
     </style>
 
-    <!-- Preconnect to critical domains -->
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
-    <link rel="preconnect" href="https://www.google-analytics.com">
-    <link rel="preconnect" href="https://www.youtube.com">
-    <link rel="preconnect" href="https://i.ytimg.com">
-
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <!-- Load Tailwind CSS with module preload -->
+    <link rel="modulepreload" href="https://cdn.tailwindcss.com">
+    <script type="module" src="https://cdn.tailwindcss.com"></script>
 
     <!-- Initialize loading state -->
     <script>
+        // Immediate execution of critical initialization
         document.documentElement.classList.add('js-loading');
+        
+        // Defer non-critical initialization
         window.addEventListener('load', () => {
             requestAnimationFrame(() => {
                 document.documentElement.classList.remove('js-loading');
             });
         });
 
-        // Optimize image loading
+        // Optimize image loading with native lazy loading
         if ('loading' in HTMLImageElement.prototype) {
             document.addEventListener('DOMContentLoaded', () => {
                 const images = document.querySelectorAll('img[loading="lazy"]');
@@ -123,28 +123,25 @@
             });
         }
 
-        // Register ServiceWorker
+        // Register ServiceWorker with priority
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => {
-                        console.log('ServiceWorker registration successful');
-                    })
-                    .catch(err => {
-                        console.warn('ServiceWorker registration failed:', err);
-                    });
+                navigator.serviceWorker.register('/sw.js', {
+                    scope: '/',
+                    updateViaCache: 'none'
+                });
             });
         }
     </script>
 
+    <!-- Preload critical JavaScript -->
+    <link rel="preload" href="/js/jquery-3.1.1.min.js" as="script">
+    <link rel="preload" href="/js/autoNumeric.min.js" as="script">
+    <link rel="preload" href="/js/site.js" as="script">
+
     <!-- Meta tags -->
     <meta name="description" content="Use our Tax Free Childcare Calculator to determine how much you need to pay into your tax-free childcare account in the UK for 2025.">
-    <meta name="keywords" content="tax free childcare calculator, tax-free childcare calculator, childcare calculator, child tax free calculator, childcare tax free calculator,tax free calculator,universal credit childcare calculator,child tax free calculator,childcare calculator uk,government childcare calculator">
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="satish">
     <meta name="theme-color" content="#ffffff">
-
-    <!-- Web App Manifest -->
     <link rel="manifest" href="/manifest.json">
 
     <!-- Favicons -->
@@ -166,6 +163,11 @@
         }
     }
     </script>
+
+    <!-- Defer JavaScript loading -->
+    <script src="/js/jquery-3.1.1.min.js" defer></script>
+    <script src="/js/autoNumeric.min.js" defer></script>
+    <script src="/js/site.js" defer></script>
 </head>
 <body>
     <!-- Add loading indicator -->
