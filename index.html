@@ -55,14 +55,32 @@
     }
     </script>
 
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/js/jquery-3.1.1.min.js" as="script">
+    <link rel="preload" href="/js/autoNumeric.min.js" as="script">
+    <link rel="preload" href="/js/site.js" as="script">
     
+    <!-- Defer non-critical CSS -->
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.tailwindcss.com"></noscript>
+
+    <!-- Inline critical CSS -->
+    <style>
+        /* Add critical CSS here */
+        .container { width: 100%; padding-right: 1rem; padding-left: 1rem; margin-right: auto; margin-left: auto; }
+        @media (min-width: 640px) { .container { max-width: 640px; } }
+        @media (min-width: 768px) { .container { max-width: 768px; } }
+        @media (min-width: 1024px) { .container { max-width: 1024px; } }
+    </style>
+
+    <!-- Defer JavaScript -->
+    <script defer src="/js/jquery-3.1.1.min.js"></script>
+    <script defer src="/js/autoNumeric.min.js"></script>
+    <script defer src="/js/site.js"></script>
 
     <!-- Favicons -->
     <!-- Inline SVG favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%237d6ee7'></rect><text x='50%' y='50%' dominant-baseline='central' text-anchor='middle' font-size='90'>🚼</text></svg>">
-
-    <!-- Add Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
 <body>
@@ -313,7 +331,17 @@
 
         <div class="max-w-4xl mx-auto mb-12">
             <div class="aspect-video">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/dWtBXwDjccw?si=SUysPxrFpCK2Pl1c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen aria-label="Watch video about Tax Free Childcare"></iframe>
+                <iframe 
+                    class="w-full h-full"
+                    loading="lazy"
+                    src="https://www.youtube.com/embed/dWtBXwDjccw"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                    aria-label="Watch video about Tax Free Childcare">
+                </iframe>
             </div>
         </div>
     </div>
@@ -345,7 +373,17 @@
 
         <div class="max-w-4xl mx-auto mb-12">
             <div class="aspect-video">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/O1Hjpfsjt0A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen aria-label="Watch video about Tax Free Childcare Calculator"></iframe>
+                <iframe 
+                    class="w-full h-full"
+                    loading="lazy"
+                    src="https://www.youtube.com/embed/O1Hjpfsjt0A"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                    aria-label="Watch video about Tax Free Childcare Calculator">
+                </iframe>
             </div>
         </div>
     </div>
@@ -375,7 +413,17 @@
                 <p>It's important to know if you can get tax-free childcare in the UK. By meeting the income, age, and work criteria, you can get help with childcare costs.</p><br>
                 <div class="max-w-4xl mx-auto mb-12">
                     <div class="aspect-video">
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/p2k99f3FG0E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen aria-label="Watch video about Tax Free Childcare Eligibility"></iframe>
+                        <iframe 
+                            class="w-full h-full"
+                            loading="lazy"
+                            src="https://www.youtube.com/embed/p2k99f3FG0E"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen
+                            aria-label="Watch video about Tax Free Childcare Eligibility">
+                        </iframe>
                     </div>
                 </div>
             </div>
@@ -400,7 +448,17 @@
 
                 <div class="max-w-4xl mx-auto mb-12">
                     <div class="aspect-video">
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/EmonaLUgjwg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen aria-label="Watch video about Tax Free Childcare Maximum Allowance"></iframe>
+                        <iframe 
+                            class="w-full h-full"
+                            loading="lazy"
+                            src="https://www.youtube.com/embed/EmonaLUgjwg"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen
+                            aria-label="Watch video about Tax Free Childcare Maximum Allowance">
+                        </iframe>
                     </div>
                 </div>
             </div>
@@ -440,7 +498,17 @@
             <div class="container mx-auto px-4">
                 <div class="max-w-4xl mx-auto mb-8">
                     <div class="aspect-video">
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/I_sxGhi6KB8?si=UEmlv8lsiOoSxY2e" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen aria-label="Watch video about Tax Free Childcare"></iframe>
+                        <iframe 
+                            class="w-full h-full"
+                            loading="lazy"
+                            src="https://www.youtube.com/embed/I_sxGhi6KB8?si=UEmlv8lsiOoSxY2e"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen
+                            aria-label="Watch video about Tax Free Childcare">
+                        </iframe>
                     </div>
                 </div>
             </div>
@@ -496,11 +564,11 @@
                 <div class="aspect-w-16 aspect-h-9 mt-4" style="height: 450px;">
                     <iframe 
                         class="w-full h-full rounded-lg shadow-lg"
+                        loading="lazy"
                         src="https://www.youtube.com/embed/2q36APE809Y" 
                         title="Tax Free Childcare Information"
                         frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                     </iframe>
                 </div>
             </div>
@@ -776,10 +844,19 @@
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 </script>
 
-<!-- Move scripts to head with defer -->
-<script defer src="/js/jquery-3.1.1.min.js"></script>
-<script defer src="/js/autoNumeric.min.js"></script>
-<script defer src="/js/site.js"></script>
+<!-- Optimize mobile menu JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    });
+</script>
 
 </body>
 </html>
