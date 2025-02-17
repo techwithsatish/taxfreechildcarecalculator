@@ -1,5 +1,14 @@
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', function() {
+    // Defer non-critical initialization
+    requestIdleCallback(() => {
+        initializeCalculator();
+        initializeEventListeners();
+    });
+});
+
+// Separate calculator initialization for better code splitting
+function initializeCalculator() {
     // Cache DOM selectors
     const $signInBtn = $('#signInBtn');
     const $officialWebsiteBtn = $('#officialWebsiteBtn');
@@ -10,8 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const $alreadyContributed = $('#alreadyContributed');
     const $payAmount = $('#payAmount');
     const $contributionAmount = $('#contributionAmount');
-    const $mobileMenu = $('#mobile-menu');
-    const $mobileMenuButton = $('#mobile-menu-button');
     
     // Initialize variables
     const MAX_CONTRIBUTION = 500;
@@ -42,10 +49,19 @@ document.addEventListener('DOMContentLoaded', function() {
         lZero: 'deny'
     });
 
-    // Event listeners
-    iTotalAmount.on('keyup', updatedTotalAmount);
-    iPayAmount.on('keyup', updatedPayAmount);
-    iAlreadyContributed.on('keyup', updatedTotalAmount);
+    // Debounce function for input handlers
+    const debounce = (func, wait) => {
+        let timeout;
+        return (...args) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    };
+
+    // Event listeners with debouncing
+    iTotalAmount.on('keyup', debounce(updatedTotalAmount, 150));
+    iPayAmount.on('keyup', debounce(updatedPayAmount, 150));
+    iAlreadyContributed.on('keyup', debounce(updatedTotalAmount, 150));
 
     // Calculator functions
     function updatedTotalAmount() {
@@ -95,51 +111,47 @@ document.addEventListener('DOMContentLoaded', function() {
         $contributionAmount.val(contributionAmount.toFixed(2));
     }
 
-    // Track outbound link clicks
-    $signInBtn.on('click', () => handleOutboundLinkClicks('Sign into your Account'));
-    $checkEligibleBtn.on('click', () => handleOutboundLinkClicks('Check if your Eligible'));
-    $officialWebsiteBtn.on('click', () => handleOutboundLinkClicks('Tax Free Childcare Website'));
-    $searchProvidersBtn.on('click', () => handleOutboundLinkClicks('Register Childcare Providers'));
-    $applyBtn.on('click', () => handleOutboundLinkClicks('Apply online for Tax-Free Childcare'));
-
-    function handleOutboundLinkClicks(description) {
+    // Track outbound link clicks with event delegation
+    const handleOutboundLinkClicks = (description) => {
         if (typeof gtag === 'function') {
             gtag('event', 'click', {
                 'event_category': 'Outbound Link',
                 'event_label': description
             });
         }
-    }
+    };
 
-    // Initialize event listeners
-    initializeEventListeners();
-    
-    // Remove loading state when everything is initialized
-    document.documentElement.classList.remove('js-loading');
-});
+    // Optimize event listeners using event delegation
+    $(document).on('click', '[data-track]', function() {
+        handleOutboundLinkClicks($(this).data('track'));
+    });
+
+    // Remove loading state
+    requestAnimationFrame(() => {
+        document.documentElement.classList.remove('js-loading');
+    });
+}
 
 // Separate initialization functions for better code organization
 function initializeEventListeners() {
-    // Mobile menu toggle with optimized event handling
     const $mobileMenu = $('#mobile-menu');
     const $mobileMenuButton = $('#mobile-menu-button');
     
+    // Mobile menu toggle with optimized event handling
     $mobileMenuButton.on('click', function(e) {
         e.stopPropagation();
         $mobileMenu.toggleClass('hidden');
     });
 
-    // Optimize document click handler
-    const closeMenu = debounce(function(event) {
+    // Optimize document click handler with passive event listener
+    document.addEventListener('click', function(event) {
         if (!$mobileMenu.is(event.target) && 
             !$mobileMenuButton.is(event.target) && 
             $mobileMenuButton.has(event.target).length === 0 && 
             $mobileMenu.has(event.target).length === 0) {
             $mobileMenu.addClass('hidden');
         }
-    }, 100);
-
-    $(document).on('click', closeMenu);
+    }, { passive: true });
 
     // Close mobile menu when clicking a link
     $mobileMenu.on('click', 'a', function() {
@@ -147,20 +159,22 @@ function initializeEventListeners() {
     });
 }
 
-// Optimized FAQ Accordion with event delegation
-$(document).on('click', '.faq-button', function() {
-    const $this = $(this);
-    const $answer = $this.next('.faq-answer');
-    const $arrow = $this.find('svg');
-    
-    $('.faq-answer').not($answer).removeClass('active').css('max-height', '0');
-    $('.faq-button').not($this).find('svg').removeClass('rotate-180');
-    
-    if ($answer.hasClass('active')) {
-        $answer.removeClass('active').css('max-height', '0');
-        $arrow.removeClass('rotate-180');
-    } else {
-        $answer.addClass('active').css('max-height', $answer[0].scrollHeight + 'px');
-        $arrow.addClass('rotate-180');
+// Optimized FAQ Accordion with event delegation and passive events
+document.addEventListener('click', function(event) {
+    if (event.target.closest('.faq-button')) {
+        const $button = $(event.target.closest('.faq-button'));
+        const $answer = $button.next('.faq-answer');
+        const $arrow = $button.find('svg');
+        
+        $('.faq-answer').not($answer).removeClass('active').css('max-height', '0');
+        $('.faq-button').not($button).find('svg').removeClass('rotate-180');
+        
+        if ($answer.hasClass('active')) {
+            $answer.removeClass('active').css('max-height', '0');
+            $arrow.removeClass('rotate-180');
+        } else {
+            $answer.addClass('active').css('max-height', $answer[0].scrollHeight + 'px');
+            $arrow.addClass('rotate-180');
+        }
     }
-});
+}, { passive: true });
