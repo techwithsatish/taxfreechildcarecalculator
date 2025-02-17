@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Use passive event listeners for better scroll performance
 document.addEventListener('DOMContentLoaded', function() {
     // Defer all non-critical initialization
@@ -96,23 +97,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const $mobileMenu = $('#mobile-menu');
     const $mobileMenuButton = $('#mobile-menu-button');
     
+=======
+$(document).ready(function () {
+>>>>>>> parent of ed51814 (optimesed - fixed)
     // Initialize variables
     const MAX_CONTRIBUTION = 500;
     
-    // Debounce function
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-    
     // Initialize input fields with autoNumeric
+<<<<<<< HEAD
     const initializeInputs = () => {
         let iTotalAmount = $totalAmount.autoNumeric('init', {
             aSep: '', 
@@ -147,60 +139,120 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize immediately
     initializeInputs();
+=======
+    let iTotalAmount = $('#totalAmount').autoNumeric('init', {
+        aSep: '', 
+        vMin: '0', 
+        mDec: '2', 
+        wEmpty: 'zero', 
+        lZero: 'deny'
+    });
+    
+    let iAlreadyContributed = $('#alreadyContributed').autoNumeric('init', {
+        aSep: '', 
+        vMax: MAX_CONTRIBUTION.toString(), 
+        vMin: '0', 
+        mDec: '2', 
+        wEmpty: 'zero', 
+        lZero: 'deny'
+    });
+    
+    let iPayAmount = $('#payAmount').autoNumeric('init', {
+        aSep: '', 
+        vMin: '0', 
+        mDec: '2', 
+        wEmpty: 'zero', 
+        lZero: 'deny'
+    });
+    
+    let iContributionAmount = $('#contributionAmount');
+>>>>>>> parent of ed51814 (optimesed - fixed)
 
-    // Track outbound link clicks with event delegation
-    $(document).on('click', '[data-track]', function() {
-        handleOutboundLinkClicks($(this).data('track'));
+    // Event listeners
+    iTotalAmount.on('keyup', updatedTotalAmount);
+    iPayAmount.on('keyup', updatedPayAmount);
+    iAlreadyContributed.on('keyup', updatedTotalAmount);
+
+    // Track outbound link clicks
+    $('#signInBtn').on('click', () => handleOutboundLinkClicks('Sign into your Account'));
+    $('.checkEligibleBtn').on('click', () => handleOutboundLinkClicks('Check if your Eligible'));
+    $('#officialWebsiteBtn').on('click', () => handleOutboundLinkClicks('Tax Free Childcare Website'));
+    $('#searchProvidersBtn').on('click', () => handleOutboundLinkClicks('Register Childcare Providers'));
+    $('#applyBtn').on('click', () => handleOutboundLinkClicks('Apply online for Tax-Free Childcare'));
+
+    // Mobile menu toggle
+    $('#mobile-menu-button').on('click', function(e) {
+        e.stopPropagation(); // Prevent event from bubbling up
+        $('#mobile-menu').toggleClass('hidden');
     });
 
-    // Mobile menu toggle with optimized event handling
-    $mobileMenuButton.on('click', function(e) {
-        e.stopPropagation();
-        $mobileMenu.toggleClass('hidden');
-    });
-
-    // Optimize document click handler
-    const closeMenu = debounce(function(event) {
-        if (!$mobileMenu.is(event.target) && 
-            !$mobileMenuButton.is(event.target) && 
-            $mobileMenuButton.has(event.target).length === 0 && 
-            $mobileMenu.has(event.target).length === 0) {
-            $mobileMenu.addClass('hidden');
+    // Close mobile menu when clicking outside
+    $(document).on('click', function(event) {
+        const $menu = $('#mobile-menu');
+        const $button = $('#mobile-menu-button');
+        
+        if (!$menu.is(event.target) && 
+            !$button.is(event.target) && 
+            $button.has(event.target).length === 0 && 
+            $menu.has(event.target).length === 0) {
+            $menu.addClass('hidden');
         }
-    }, 100);
-
-    $(document).on('click', closeMenu);
+    });
 
     // Close mobile menu when clicking a link
-    $mobileMenu.on('click', 'a', function() {
-        $mobileMenu.addClass('hidden');
+    $('#mobile-menu a').on('click', function() {
+        $('#mobile-menu').addClass('hidden');
     });
 
     function updatedTotalAmount() {
         let amount = parseFloat($totalAmount.val());
 
+<<<<<<< HEAD
         if (isNaN(amount) || amount <= 0) {
             $payAmount.val('0.00');
             $contributionAmount.val('0.00');
+=======
+        // Add validation
+        if (isNaN(amount)) {
+            iPayAmount.val('0.00');
+            iContributionAmount.val('0.00');
+>>>>>>> parent of ed51814 (optimesed - fixed)
             return;
         }
 
-        let payInAmount = ((amount / 10) * 8);
-        let contributionAmount = ((amount / 10) * 2);
-        calculateContribution('total', payInAmount, contributionAmount);
+        if (amount > 0) {
+            let payInAmount = ((amount / 10) * 8);
+            let contributionAmount = ((amount / 10) * 2);
+            calculateContribution('total', payInAmount, contributionAmount);
+        } else {
+            iPayAmount.val('0.00');
+            iContributionAmount.val('0.00');
+        }
     }
 
     function updatedPayAmount() {
         let amount = parseFloat($payAmount.val());
 
+<<<<<<< HEAD
         if (isNaN(amount) || amount <= 0) {
             $totalAmount.val('0.00');
             $contributionAmount.val('0.00');
+=======
+        // Add validation
+        if (isNaN(amount)) {
+            iTotalAmount.val('0.00');
+            iContributionAmount.val('0.00');
+>>>>>>> parent of ed51814 (optimesed - fixed)
             return;
         }
 
-        let contributionAmount = ((amount / 8) * 2).toFixed(2);
-        calculateContribution('payIn', amount, contributionAmount);
+        if (amount > 0) {
+            let contributionAmount = ((amount / 8) * 2).toFixed(2);
+            calculateContribution('payIn', amount, contributionAmount);
+        } else {
+            iTotalAmount.val('0.00');
+            iContributionAmount.val('0.00');
+        }
     }
 
     function calculateContribution(updateType, payInAmount, contributionAmount) {
@@ -223,38 +275,37 @@ document.addEventListener('DOMContentLoaded', function() {
             $totalAmount.val((payInAmount + contributionAmount).toFixed(2));
         }
 
-        $contributionAmount.val(contributionAmount.toFixed(2));
+        iContributionAmount.val(contributionAmount.toFixed(2));
     }
 
-    // Optimized error handling for analytics
+    // Add error handling for analytics
     function handleOutboundLinkClicks(description) {
-        if (typeof gtag === 'function') {
-            try {
-                gtag('event', 'click', {
-                    'event_category': 'Outbound Link',
-                    'event_label': description
-                });
-            } catch (error) {
-                console.warn('Analytics tracking failed:', error);
-            }
+        try {
+            gtag('event', 'click', {
+                'event_category': 'Outbound Link',
+                'event_label': description
+            });
+        } catch (error) {
+            console.warn('Analytics tracking failed:', error);
         }
     }
 
-    // Optimized FAQ Accordion with event delegation
-    $(document).on('click', '.faq-button', function() {
-        const $this = $(this);
-        const $answer = $this.next('.faq-answer');
-        const $arrow = $this.find('svg');
+    // FAQ Accordion
+    $('.faq-button').on('click', function() {
+        const answer = $(this).next('.faq-answer');
+        const arrow = $(this).find('svg');
         
-        $('.faq-answer').not($answer).removeClass('active').css('max-height', '0');
-        $('.faq-button').not($this).find('svg').removeClass('rotate-180');
+        // Close all other answers
+        $('.faq-answer').not(answer).removeClass('active').css('max-height', '0');
+        $('.faq-button').not(this).find('svg').removeClass('rotate-180');
         
-        if ($answer.hasClass('active')) {
-            $answer.removeClass('active').css('max-height', '0');
-            $arrow.removeClass('rotate-180');
+        // Toggle current answer
+        if (answer.hasClass('active')) {
+            answer.removeClass('active').css('max-height', '0');
+            arrow.removeClass('rotate-180');
         } else {
-            $answer.addClass('active').css('max-height', $answer[0].scrollHeight + 'px');
-            $arrow.addClass('rotate-180');
+            answer.addClass('active').css('max-height', answer[0].scrollHeight + 'px');
+            arrow.addClass('rotate-180');
         }
     });
 
