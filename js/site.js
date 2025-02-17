@@ -1,4 +1,5 @@
-$(document).ready(function () {
+// Initialize on DOM ready
+document.addEventListener('DOMContentLoaded', function() {
     // Cache DOM selectors
     const $totalAmount = $('#totalAmount');
     const $alreadyContributed = $('#alreadyContributed');
@@ -24,35 +25,40 @@ $(document).ready(function () {
     }
     
     // Initialize input fields with autoNumeric
-    let iTotalAmount = $totalAmount.autoNumeric('init', {
-        aSep: '', 
-        vMin: '0', 
-        mDec: '2', 
-        wEmpty: 'zero', 
-        lZero: 'deny'
-    });
-    
-    let iAlreadyContributed = $alreadyContributed.autoNumeric('init', {
-        aSep: '', 
-        vMax: MAX_CONTRIBUTION.toString(), 
-        vMin: '0', 
-        mDec: '2', 
-        wEmpty: 'zero', 
-        lZero: 'deny'
-    });
-    
-    let iPayAmount = $payAmount.autoNumeric('init', {
-        aSep: '', 
-        vMin: '0', 
-        mDec: '2', 
-        wEmpty: 'zero', 
-        lZero: 'deny'
-    });
-    
-    // Event listeners with debouncing
-    iTotalAmount.on('keyup', debounce(updatedTotalAmount, 250));
-    iPayAmount.on('keyup', debounce(updatedPayAmount, 250));
-    iAlreadyContributed.on('keyup', debounce(updatedTotalAmount, 250));
+    const initializeInputs = () => {
+        let iTotalAmount = $totalAmount.autoNumeric('init', {
+            aSep: '', 
+            vMin: '0', 
+            mDec: '2', 
+            wEmpty: 'zero', 
+            lZero: 'deny'
+        });
+        
+        let iAlreadyContributed = $alreadyContributed.autoNumeric('init', {
+            aSep: '', 
+            vMax: MAX_CONTRIBUTION.toString(), 
+            vMin: '0', 
+            mDec: '2', 
+            wEmpty: 'zero', 
+            lZero: 'deny'
+        });
+        
+        let iPayAmount = $payAmount.autoNumeric('init', {
+            aSep: '', 
+            vMin: '0', 
+            mDec: '2', 
+            wEmpty: 'zero', 
+            lZero: 'deny'
+        });
+
+        // Event listeners with debouncing
+        iTotalAmount.on('keyup', debounce(updatedTotalAmount, 250));
+        iPayAmount.on('keyup', debounce(updatedPayAmount, 250));
+        iAlreadyContributed.on('keyup', debounce(updatedTotalAmount, 250));
+    };
+
+    // Initialize immediately
+    initializeInputs();
 
     // Track outbound link clicks with event delegation
     $(document).on('click', '[data-track]', function() {
@@ -83,10 +89,10 @@ $(document).ready(function () {
     });
 
     function updatedTotalAmount() {
-        let amount = parseFloat(iTotalAmount.val());
+        let amount = parseFloat($totalAmount.val());
 
         if (isNaN(amount) || amount <= 0) {
-            iPayAmount.val('0.00');
+            $payAmount.val('0.00');
             $contributionAmount.val('0.00');
             return;
         }
@@ -97,10 +103,10 @@ $(document).ready(function () {
     }
 
     function updatedPayAmount() {
-        let amount = parseFloat(iPayAmount.val());
+        let amount = parseFloat($payAmount.val());
 
         if (isNaN(amount) || amount <= 0) {
-            iTotalAmount.val('0.00');
+            $totalAmount.val('0.00');
             $contributionAmount.val('0.00');
             return;
         }
@@ -113,7 +119,7 @@ $(document).ready(function () {
         // Add validation for inputs
         payInAmount = Math.max(0, parseFloat(payInAmount) || 0);
         contributionAmount = Math.max(0, parseFloat(contributionAmount) || 0);
-        let alreadyContributed = Math.max(0, parseFloat(iAlreadyContributed.val()) || 0);
+        let alreadyContributed = Math.max(0, parseFloat($alreadyContributed.val()) || 0);
         let maxContribution = Math.max(0, MAX_CONTRIBUTION - alreadyContributed);
 
         if (contributionAmount > maxContribution) {
@@ -124,9 +130,9 @@ $(document).ready(function () {
         }
 
         if (updateType === 'total') {
-            iPayAmount.val(payInAmount.toFixed(2));
+            $payAmount.val(payInAmount.toFixed(2));
         } else {
-            iTotalAmount.val((payInAmount + contributionAmount).toFixed(2));
+            $totalAmount.val((payInAmount + contributionAmount).toFixed(2));
         }
 
         $contributionAmount.val(contributionAmount.toFixed(2));
@@ -163,4 +169,7 @@ $(document).ready(function () {
             $arrow.addClass('rotate-180');
         }
     });
+
+    // Remove loading state when everything is initialized
+    document.documentElement.classList.remove('js-loading');
 });
