@@ -1,45 +1,52 @@
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', function() {
-    initializeCalculator();
+    // Defer non-critical initialization
+    requestIdleCallback(() => {
+        initializeCalculator();
+        initializeEventListeners();
+    });
 });
 
+// Separate calculator initialization for better code splitting
 function initializeCalculator() {
     // Cache DOM selectors
-    const totalAmountInput = document.getElementById('totalAmount');
-    const alreadyContributedInput = document.getElementById('alreadyContributed');
-    const payAmountInput = document.getElementById('payAmount');
-    const contributionAmountInput = document.getElementById('contributionAmount');
+    const $signInBtn = $('#signInBtn');
+    const $officialWebsiteBtn = $('#officialWebsiteBtn');
+    const $searchProvidersBtn = $('#searchProvidersBtn');
+    const $applyBtn = $('#applyBtn');
+    const $checkEligibleBtn = $('.checkEligibleBtn');
+    const $totalAmount = $('#totalAmount');
+    const $alreadyContributed = $('#alreadyContributed');
+    const $payAmount = $('#payAmount');
+    const $contributionAmount = $('#contributionAmount');
     
     // Initialize variables
     const MAX_CONTRIBUTION = 500;
     
     // Initialize input fields with autoNumeric
-    const iTotalAmount = new AutoNumeric(totalAmountInput, {
-        decimalPlaces: 2,
-        minimumValue: '0',
-        emptyInputBehavior: 'zero',
-        leadingZero: 'deny',
-        decimalCharacter: '.',
-        digitGroupSeparator: ''
+    const iTotalAmount = $totalAmount.autoNumeric('init', {
+        aSep: '', 
+        vMin: '0', 
+        mDec: '2', 
+        wEmpty: 'zero', 
+        lZero: 'deny'
     });
 
-    const iAlreadyContributed = new AutoNumeric(alreadyContributedInput, {
-        decimalPlaces: 2,
-        maximumValue: MAX_CONTRIBUTION.toString(),
-        minimumValue: '0',
-        emptyInputBehavior: 'zero',
-        leadingZero: 'deny',
-        decimalCharacter: '.',
-        digitGroupSeparator: ''
+    const iAlreadyContributed = $alreadyContributed.autoNumeric('init', {
+        aSep: '', 
+        vMax: MAX_CONTRIBUTION.toString(), 
+        vMin: '0', 
+        mDec: '2', 
+        wEmpty: 'zero', 
+        lZero: 'deny'
     });
 
-    const iPayAmount = new AutoNumeric(payAmountInput, {
-        decimalPlaces: 2,
-        minimumValue: '0',
-        emptyInputBehavior: 'zero',
-        leadingZero: 'deny',
-        decimalCharacter: '.',
-        digitGroupSeparator: ''
+    const iPayAmount = $payAmount.autoNumeric('init', {
+        aSep: '', 
+        vMin: '0', 
+        mDec: '2', 
+        wEmpty: 'zero', 
+        lZero: 'deny'
     });
 
     // Debounce function for input handlers
@@ -52,40 +59,40 @@ function initializeCalculator() {
     };
 
     // Event listeners with debouncing
-    totalAmountInput.addEventListener('input', debounce(updatedTotalAmount, 150));
-    payAmountInput.addEventListener('input', debounce(updatedPayAmount, 150));
-    alreadyContributedInput.addEventListener('input', debounce(updatedTotalAmount, 150));
+    iTotalAmount.on('keyup', debounce(updatedTotalAmount, 150));
+    iPayAmount.on('keyup', debounce(updatedPayAmount, 150));
+    iAlreadyContributed.on('keyup', debounce(updatedTotalAmount, 150));
 
     // Calculator functions
     function updatedTotalAmount() {
-        let amount = iTotalAmount.getNumber();
+        let amount = parseFloat(iTotalAmount.val());
 
         if (amount > 0) {
             let payInAmount = ((amount / 10) * 8);
             let contributionAmount = ((amount / 10) * 2);
             calculateContribution('total', payInAmount, contributionAmount);
         } else {
-            iPayAmount.set(0);
-            contributionAmountInput.value = '0.00';
+            iPayAmount.val('0.00');
+            $contributionAmount.val('0.00');
         }
     }
 
     function updatedPayAmount() {
-        let amount = iPayAmount.getNumber();
+        let amount = parseFloat(iPayAmount.val());
 
         if (amount > 0) {
-            let contributionAmount = ((amount / 8) * 2);
+            let contributionAmount = ((amount / 8) * 2).toFixed(2);
             calculateContribution('payIn', amount, contributionAmount);
         } else {
-            iTotalAmount.set(0);
-            contributionAmountInput.value = '0.00';
+            iTotalAmount.val('0.00');
+            $contributionAmount.val('0.00');
         }
     }
 
     function calculateContribution(updateType, payInAmount, contributionAmount) {
         payInAmount = parseFloat(payInAmount) || 0;
         contributionAmount = parseFloat(contributionAmount) || 0;
-        let alreadyContributed = iAlreadyContributed.getNumber() || 0;
+        let alreadyContributed = parseFloat(iAlreadyContributed.val()) || 0;
         let maxContribution = MAX_CONTRIBUTION - alreadyContributed;
 
         if (contributionAmount > maxContribution) {
@@ -96,55 +103,28 @@ function initializeCalculator() {
         }
 
         if (updateType === 'total') {
-            iPayAmount.set(payInAmount);
+            iPayAmount.val(payInAmount.toFixed(2));
         } else {
-            iTotalAmount.set(payInAmount + contributionAmount);
+            iTotalAmount.val((payInAmount + contributionAmount).toFixed(2));
         }
 
-        contributionAmountInput.value = contributionAmount.toFixed(2);
+        $contributionAmount.val(contributionAmount.toFixed(2));
     }
 
-    // Track outbound link clicks
-    const trackableButtons = document.querySelectorAll('[data-track]');
-    trackableButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const description = button.dataset.track;
-            if (typeof gtag === 'function') {
-                gtag('event', 'click', {
-                    'event_category': 'Outbound Link',
-                    'event_label': description
-                });
-            }
-        });
+    // Track outbound link clicks with event delegation
+    const handleOutboundLinkClicks = (description) => {
+        if (typeof gtag === 'function') {
+            gtag('event', 'click', {
+                'event_category': 'Outbound Link',
+                'event_label': description
+            });
+        }
+    };
+
+    // Optimize event listeners using event delegation
+    $(document).on('click', '[data-track]', function() {
+        handleOutboundLinkClicks($(this).data('track'));
     });
-
-    // Mobile menu functionality
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    
-    if (mobileMenuButton) {
-        mobileMenuButton.addEventListener('click', (e) => {
-            e.stopPropagation();
-            mobileMenu.classList.toggle('hidden');
-        });
-    }
-
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (event) => {
-        if (mobileMenu && !mobileMenu.contains(event.target) && 
-            !mobileMenuButton.contains(event.target)) {
-            mobileMenu.classList.add('hidden');
-        }
-    }, { passive: true });
-
-    // Close mobile menu when clicking a link
-    if (mobileMenu) {
-        mobileMenu.addEventListener('click', (e) => {
-            if (e.target.tagName === 'A') {
-                mobileMenu.classList.add('hidden');
-            }
-        });
-    }
 
     // Remove loading state
     requestAnimationFrame(() => {
@@ -152,29 +132,49 @@ function initializeCalculator() {
     });
 }
 
-// FAQ Accordion
-document.addEventListener('click', (event) => {
-    const button = event.target.closest('.faq-button');
-    if (button) {
-        const answer = button.nextElementSibling;
-        const arrow = button.querySelector('svg');
+// Separate initialization functions for better code organization
+function initializeEventListeners() {
+    const $mobileMenu = $('#mobile-menu');
+    const $mobileMenuButton = $('#mobile-menu-button');
+    
+    // Mobile menu toggle with optimized event handling
+    $mobileMenuButton.on('click', function(e) {
+        e.stopPropagation();
+        $mobileMenu.toggleClass('hidden');
+    });
+
+    // Optimize document click handler with passive event listener
+    document.addEventListener('click', function(event) {
+        if (!$mobileMenu.is(event.target) && 
+            !$mobileMenuButton.is(event.target) && 
+            $mobileMenuButton.has(event.target).length === 0 && 
+            $mobileMenu.has(event.target).length === 0) {
+            $mobileMenu.addClass('hidden');
+        }
+    }, { passive: true });
+
+    // Close mobile menu when clicking a link
+    $mobileMenu.on('click', 'a', function() {
+        $mobileMenu.addClass('hidden');
+    });
+}
+
+// Optimized FAQ Accordion with event delegation and passive events
+document.addEventListener('click', function(event) {
+    if (event.target.closest('.faq-button')) {
+        const $button = $(event.target.closest('.faq-button'));
+        const $answer = $button.next('.faq-answer');
+        const $arrow = $button.find('svg');
         
-        document.querySelectorAll('.faq-answer').forEach(el => {
-            if (el !== answer) {
-                el.classList.remove('active');
-                el.style.maxHeight = '0';
-            }
-        });
+        $('.faq-answer').not($answer).removeClass('active').css('max-height', '0');
+        $('.faq-button').not($button).find('svg').removeClass('rotate-180');
         
-        document.querySelectorAll('.faq-button svg').forEach(el => {
-            if (el !== arrow) {
-                el.classList.remove('rotate-180');
-            }
-        });
-        
-        const isActive = answer.classList.contains('active');
-        answer.classList.toggle('active');
-        answer.style.maxHeight = isActive ? '0' : `${answer.scrollHeight}px`;
-        arrow.classList.toggle('rotate-180');
+        if ($answer.hasClass('active')) {
+            $answer.removeClass('active').css('max-height', '0');
+            $arrow.removeClass('rotate-180');
+        } else {
+            $answer.addClass('active').css('max-height', $answer[0].scrollHeight + 'px');
+            $arrow.addClass('rotate-180');
+        }
     }
 }, { passive: true });
