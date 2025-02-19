@@ -6,6 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tax Free Childcare Calculator: UK 2025</title>
 
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    <link rel="preload" href="/js/jquery-3.1.1.min.js" as="script">
+    <link rel="preload" href="/js/autoNumeric.min.js" as="script">
+    <link rel="preload" href="/js/site.js" as="script">
+
+    <!-- DNS prefetch and preconnect -->
+    <link rel="dns-prefetch" href="https://www.youtube.com">
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="dns-prefetch" href="https://www.gov.uk">
+    <link rel="preconnect" href="https://www.gov.uk">
+
+    <!-- Critical CSS inline -->
+    <style>
+        /* Critical path CSS */
+        .container { width: 100%; padding-right: 1rem; padding-left: 1rem; margin-right: auto; margin-left: auto; }
+        @media (min-width: 640px) { .container { max-width: 640px; } }
+        @media (min-width: 768px) { .container { max-width: 768px; } }
+        @media (min-width: 1024px) { .container { max-width: 1024px; } }
+        .bg-blue-600 { background-color: #2563eb; }
+        .text-white { color: #ffffff; }
+        .font-bold { font-weight: 700; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .h-16 { height: 4rem; }
+        .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+    </style>
+
     <!-- Meta Tags -->
     <meta name="description" content="Use our Tax Free Childcare Calculator to determine how much you need to pay into your tax-free childcare account in the UK for 2025.">
     <meta name="keywords" content="tax free childcare calculator, tax-free childcare calculator, childcare calculator, child tax free calculator, childcare tax free calculator,tax free calculator,universal credit childcare calculator,child tax free calculator,childcare calculator uk,government childcare calculator">
@@ -795,10 +825,19 @@
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 </script>
 
-<!-- Move scripts to head with defer -->
+<!-- Optimized script loading -->
 <script defer src="/js/jquery-3.1.1.min.js"></script>
 <script defer src="/js/autoNumeric.min.js"></script>
 <script defer src="/js/site.js"></script>
+
+<!-- Add Tailwind CSS with async loading -->
+<script>
+    // Load Tailwind CSS asynchronously
+    const tailwindScript = document.createElement('script');
+    tailwindScript.src = 'https://cdn.tailwindcss.com';
+    tailwindScript.defer = true;
+    document.head.appendChild(tailwindScript);
+</script>
 
 </body>
 </html>
